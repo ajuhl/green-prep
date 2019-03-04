@@ -1,6 +1,7 @@
 
 from django.contrib import admin
 from django.urls import include, path
+from . import views
 
 
 urlpatterns = [
@@ -8,9 +9,10 @@ urlpatterns = [
     path('meals/', include('mealbuilder.urls')),
     path('grocerylist/', include('grocerylist.urls')),
     path('profile/', include('userprofile.urls')),
+    #path('', views.index, name='index'),
+    
 ]
 
-#Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]

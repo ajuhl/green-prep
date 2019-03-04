@@ -124,3 +124,6 @@ STATIC_URL = '/static/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+#For testing: logs any emails sent to the console. Copy the link in the cosole to test pasword reset.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
