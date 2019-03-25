@@ -4,6 +4,8 @@ from .models import Food, Meal, MealItem
 #gets context from the meal builder form?
 def CalculateMeal(meal):
 
+    import ipdb; ipdb.set_trace()
+
     #how to access just the mealitems with the foreign key to this meal?
     meal_foods = meal.mealitem_set.all()
 
@@ -12,8 +14,6 @@ def CalculateMeal(meal):
     carbs = 0
     fat = 0
 
-    import ipdb; ipdb.set_trace()
-    
     for item in meal_foods:
         calories += item.food_item.calories
         protein += item.food_item.protein
