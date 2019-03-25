@@ -6,7 +6,7 @@ import datetime
 
 class Food(models.Model):
     name = models.CharField(max_length=120)
-    #serving_sizes(S)  = 
+    #serving_sizes(S)  =
 
     # This amount per 100g?
     #round all macros up to the nearest gram - not doubles
@@ -25,7 +25,7 @@ class Food(models.Model):
 #---------------------------------------------
 
 class Meal(models.Model):
-    #id = 
+    #id =
     #id of user who created it
     #name of meal
     creation_date = models.DateTimeField(default=timezone.now())
@@ -35,9 +35,9 @@ class Meal(models.Model):
     #calculation goal for the meal for fats, protein, and carbs
     #cals, fats, protein, carbs allocated FOR THE MEAL
     #potentially add info for 'bounds' as in 'no more than 20oz chicken please'
-    
 
-    #mini model - holding only many to many relationship to foods, and 
+
+    #mini model - holding only many to many relationship to foods, and
     # also the proportion of food that will be in it
     #start serving size as null, will change once the food has been added in?
     #or does the class just hold on to these values and work only with the food objects, then
@@ -63,4 +63,3 @@ class Day(models.Model):
 
     def _str_(self):
         return self.id
-

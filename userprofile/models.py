@@ -5,13 +5,15 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     # Personal Info
-    #user_id - is username enough? if not we can generate an id
+    # user_id =models.IntegerField()#- is username enough? if not we can generate an id
 
     birthdate = models.DateField(null=True, blank=True)
     SEX_CHOICES = (
         ('F', 'Female'),
         ('M', 'Male'),
     )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     # Height stored in cm?
     height = models.DecimalField(max_digits=5, decimal_places=2)
@@ -57,7 +59,7 @@ class Profile(models.Model):
     #list of their hearted meal objects that they want to go back to
     #list of hearted day plans (which are lists of meal objects)
 
-    def __str__(self): 
+    def __str__(self):
         return self.user.username
 
 @receiver(post_save, sender=User)
