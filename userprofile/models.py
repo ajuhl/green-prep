@@ -6,17 +6,19 @@ from django.dispatch import receiver
 class Profile(models.Model):
     # Personal Info
     #user_id - is username enough? if not we can generate an id
+    user_id = 1
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     birthdate = models.DateField(null=True, blank=True)
     SEX_CHOICES = (
         ('F', 'Female'),
         ('M', 'Male'),
     )
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES)
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, null=True)
     # Height stored in cm?
-    height = models.DecimalField(max_digits=5, decimal_places=2)
+    height = models.DecimalField(max_digits=5, decimal_places=2, null=True)
     # Weight stored in kg?
-    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    weight = models.DecimalField(max_digits=5, decimal_places=2, null=True)
 
     #display preferences
     #measurements - metric/imperial
@@ -50,9 +52,9 @@ class Profile(models.Model):
 
     #METHODS - calculate by default, but allow user input
     #upon updates to other parts, don't change this without getting clear consent
-    p_goal = models.IntegerField()
-    c_goal = models.IntegerField()
-    f_goal = models.IntegerField()
+    p_goal = models.IntegerField(null=True, blank=True)
+    c_goal = models.IntegerField(null=True, blank=True)
+    f_goal = models.IntegerField(null=True, blank=True)
 
     #list of their hearted meal objects that they want to go back to
     #list of hearted day plans (which are lists of meal objects)
