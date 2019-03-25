@@ -2,6 +2,9 @@ from django.db import models
 
 class GroceryList(models.Model):
     #grocery list id
+    startdate = models.DateField(null=True, blank=True)
+    enddate = models.DateField(null=True, blank=True)
+
     #user id of user whose calendar this is
     #many to many of days for the dates of this period
     #start date
