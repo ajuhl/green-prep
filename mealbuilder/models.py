@@ -16,7 +16,7 @@ class Food(models.Model):
     calories = models.IntegerField()
     protein = models.DecimalField(max_digits=6, decimal_places=2)
     carbs = models.DecimalField(max_digits=6, decimal_places=2)
-    fiber = models.DecimalField(max_digits=6, decimal_places=2)
+    # fiber = models.DecimalField(max_digits=6, decimal_places=2)
     fat = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
