@@ -17,7 +17,7 @@ class Food(models.Model):
     fiber = models.DecimalField(max_digits=6, decimal_places=2)
     fat = models.DecimalField(max_digits=6, decimal_places=2)
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
     #what other methods should we have?
@@ -53,8 +53,8 @@ class Meal(models.Model):
     #because like, the algorithm needs to know the foods to be able to calculate the serving sizes
 
 
-    def _str_(self):
-        return self.id
+    def __str__(self):
+        return self.meal_name
 
     class Meta:
         ordering = ['creation_date']
@@ -70,6 +70,8 @@ class MealItem(models.Model):
     #per 100g portion - this is what the USDA database provides for all entries
     food_proportion = models.DecimalField(max_digits=6, decimal_places=2)
 
+    def __str__(self):
+        return self.id
 
 #---------------------------------------------
 
@@ -80,6 +82,6 @@ class Day(models.Model):
     num_of_meals = models.IntegerField()
     #array of meal objects
 
-    def _str_(self):
+    def __str__(self):
         return self.id
 

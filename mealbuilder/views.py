@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .forms import MealBuilderForm
-from .models import Food, Meal
+from .models import Food, Meal, MealItem
+from .simplex import CalculateMeal
 
 def mealbuilder(request):
 
@@ -14,10 +15,10 @@ def mealbuilder(request):
         form = MealBuilderForm(request.POST)
         if form.is_valid():
             meal = CreateMealFromFormData(form)
-            #optimized_meal = SimplexMethod(meal)
+            optimized_meal = CalculateMeal(meal)
             context.update({
                 'optimized_meal': meal,
-                'message': "Form successfully submitted",
+                'message': meal.meal_name + " successfully created",
             })
 
     else:
@@ -30,9 +31,19 @@ def mealbuilder(request):
 
 
 def CreateMealFromFormData(form):
-    print("attempting to create the meal")
     meal = Meal()
-    meal.name = form.cleaned_data.get('meal_name')
+    #meal.creator_id = request.user ?
+    meal.meal_name = form.cleaned_data.get('meal_name')
+
+    meal_item_1 = MealItem() 
+    meal_item_1.meal = meal
+    meal_item_1.food_item = form.cleaned_data.get('food_1')
+    meal_item_1.food_proportion = form.cleaned_data.get('food_1_quantity')
+
+    meal_item_2 = MealItem() 
+    meal_item_2.meal = meal
+    meal_item_2.food_item = form.cleaned_data.get('food_2')
+    meal_item_2.food_proportion = form.cleaned_data.get('food_2_quantity')
 
     meal.save()
-    print("meal saved!!" + meal.name + "\n")
+    return meal

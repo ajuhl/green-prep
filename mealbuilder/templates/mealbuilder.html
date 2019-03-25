@@ -4,7 +4,7 @@
 {% block content %}
 <p> {{message}} </p>
 
-<h2>Sign up</h2>
+<h2>Create Meal</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -20,6 +20,8 @@
       </p>
     {% endfor %}
     <button type="submit">Optimize Meal</button>
+    <br/>
+    Calories {{meal.calories}}
 </form>
 
 {% endblock %}
