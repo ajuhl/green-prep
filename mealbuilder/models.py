@@ -5,7 +5,9 @@ import datetime
 # Create your models here.
 
 class Food(models.Model):
+    db_num = models.CharField(max_length = 6)
     name = models.CharField(max_length=120)
+    category = models.CharField(max_length = 120)
     #serving_sizes(S)  =
 
     # This amount per 100g?
