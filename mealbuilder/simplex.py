@@ -81,7 +81,7 @@ def simplexMacro(Foods,Constraints,upperBounds):
     return servingSizes
 
 #gets context from the meal builder form?
-def CalculateMeal(meal):
+def OptimizeMeal(meal):
 
     #import ipdb; ipdb.set_trace()
 

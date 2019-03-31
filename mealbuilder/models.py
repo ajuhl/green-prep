@@ -30,7 +30,6 @@ class Food(models.Model):
 #---------------------------------------------
 
 class Meal(models.Model):
-    meal_id = models.CharField(max_length=20, blank=True, unique=True, default=uuid4)
     creator_id = models.CharField(max_length=120)
     meal_name = models.CharField(max_length=120)
     creation_date = models.DateTimeField(default=timezone.now())

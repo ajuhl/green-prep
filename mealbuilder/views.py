@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from .forms import MealBuilderForm
 from .models import Food, Meal, MealItem
-from .simplex import CalculateMeal
+from .simplex import OptimizeMeal
 
 def mealbuilder(request):
 
@@ -15,7 +15,7 @@ def mealbuilder(request):
         form = MealBuilderForm(request.POST)
         if form.is_valid():
             meal = CreateMealFromFormData(form)
-            optimized_meal = CalculateMeal(meal)
+            optimized_meal = OptimizeMeal(meal)
             context.update({
                 'optimized_meal': meal,
                 'message': meal.meal_name + " successfully created",
