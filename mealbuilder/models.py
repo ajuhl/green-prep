@@ -14,10 +14,10 @@ class Food(models.Model):
     # This amount per 100g?
     #round all macros up to the nearest gram - not doubles when calculating optimal meal?
     calories = models.IntegerField()
-    protein = models.DecimalField(max_digits=6, decimal_places=2)
-    carbs = models.DecimalField(max_digits=6, decimal_places=2)
-    # fiber = models.DecimalField(max_digits=6, decimal_places=2)
-    fat = models.DecimalField(max_digits=6, decimal_places=2)
+    protein = models.FloatField()
+    carbs = models.FloatField()
+    # fiber = models.DecimalField( decimal_places=2)
+    fat = models.FloatField()
 
     def __str__(self):
         return self.name
@@ -38,10 +38,10 @@ class Meal(models.Model):
     #list of foods that are in the meal AND the amount of that food that's included
 
     calories = models.IntegerField(null=True)
-    protein = models.DecimalField(null=True, max_digits=6, decimal_places=2)
-    carbs = models.DecimalField(null=True, max_digits=6, decimal_places=2)
-    fiber = models.DecimalField(null=True, max_digits=6, decimal_places=2)
-    fat = models.DecimalField(null=True, max_digits=6, decimal_places=2)
+    protein = models.FloatField(null=True)
+    carbs = models.FloatField(null=True)
+    fiber = models.FloatField(null=True)
+    fat = models.FloatField(null=True)
 
     protein_goal = models.IntegerField(null=True)
     carb_goal = models.IntegerField(null=True)
@@ -63,11 +63,17 @@ class Meal(models.Model):
         return self.meal_name
 
     def updateNutrients(self):
+        self.protein = 0
+        self.carbs = 0
+        self.fat = 0
+        self.calories = 0
+
         for item in self.mealitem_set.all():
-            self.protein += item.food.protein
-            self.carbs += item.food.carbs
-            self.fat += item.food.fat
-            self.calories += item.food.calories
+            self.protein = self.protein + item.protein
+            self.carbs = self.carbs + item.carbs
+            self.fat = self.fat + item.fat
+            self.calories = self.calories + item.calories
+            self.save()
 
     class Meta:
         ordering = ['creation_date']
@@ -81,11 +87,11 @@ class MealItem(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.PROTECT)
     food = models.ForeignKey(Food, on_delete=models.PROTECT)
     #per 100g portion - this is what the USDA database provides for all entries
-    quantity = models.DecimalField(null=True,max_digits=6, decimal_places=2)
+    quantity = models.FloatField(null=True)
     limit = models.IntegerField(null=True)
-    protein = models.DecimalField(null=True,max_digits=6, decimal_places=2)
-    carbs = models.DecimalField(null=True,max_digits=6, decimal_places=2)
-    fat = models.DecimalField(null=True,max_digits=6, decimal_places=2)
+    protein = models.FloatField(null=True)
+    carbs = models.FloatField(null=True)
+    fat = models.FloatField(null=True)
     calories = models.IntegerField(null=True)
 
     def __str__(self):
@@ -96,6 +102,7 @@ class MealItem(models.Model):
         self.carbs = self.food.carbs * self.quantity
         self.fat = self.food.fat * self.quantity
         self.calories = self.food.calories * self.quantity
+        self.save()
 
 #---------------------------------------------
 

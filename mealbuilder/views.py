@@ -43,11 +43,13 @@ def CreateMealFromFormData(form):
         food = form.cleaned_data.get('food_1'),
         limit = form.cleaned_data.get('food_1_limit')
     )
+    meal_item_1.save()
 
 
     meal_item_2 = meal.mealitem_set.create(
         food = form.cleaned_data.get('food_2'),
         limit = form.cleaned_data.get('food_2_limit')
     )
+    meal_item_2.save()
 
     return meal

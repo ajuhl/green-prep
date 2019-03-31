@@ -115,8 +115,9 @@ def CalculateMeal(meal):
     servingSizes=simplexMacro(foodComposition,lConstraints,rConstraints)
 
     for i in range(numberOfFoods):
-        mealItems[i].quantity = servingSizes[i,0]
-        mealItems[i].updateNutrients()
+        item = mealItems[i]
+        item.quantity = servingSizes[i,0]
+        item.updateNutrients()
 
     meal.updateNutrients()
     meal.save()
