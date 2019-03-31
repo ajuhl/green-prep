@@ -42,13 +42,17 @@ class Meal(models.Model):
     carbs = models.DecimalField(null=True, max_digits=6, decimal_places=2)
     fiber = models.DecimalField(null=True, max_digits=6, decimal_places=2)
     fat = models.DecimalField(null=True, max_digits=6, decimal_places=2)
+
+    protein_goal = models.IntegerField(null=True)
+    carb_goal = models.IntegerField(null=True)
+    fat_goal = models.IntegerField(null=True)
     #calculation goal for the meal for fats, protein, and carbs
     #cals, fats, protein, carbs allocated FOR THE MEAL
     #potentially add info for 'bounds' as in 'no more than 20oz chicken please'
 
 
-    #mini model - holding only many to many relationship to foods, and
-    # also the proportion of food that will be in it
+    #mini model rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr- holding only many to many relationship to foods, and
+    # also the portion of food that will be in it
     #start serving size as null, will change once the food has been added in?
     #or does the class just hold on to these values and work only with the food objects, then
     #come back and populate the meal object
@@ -57,6 +61,13 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.meal_name
+
+    def updateNutrients(self):
+        for item in self.mealitem_set.all():
+            self.protein += item.food.protein
+            self.carbs += item.food.carbs
+            self.fat += item.food.fat
+            self.calories += item.food.calories
 
     class Meta:
         ordering = ['creation_date']
@@ -68,12 +79,23 @@ class Meal(models.Model):
 # 1 serving of chicken, new identical objects will be created for all of them
 class MealItem(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.PROTECT)
-    food_item = models.ForeignKey(Food, on_delete=models.PROTECT, null=True, blank=True)
+    food = models.ForeignKey(Food, on_delete=models.PROTECT)
     #per 100g portion - this is what the USDA database provides for all entries
-    food_proportion = models.DecimalField(max_digits=6, decimal_places=2)
+    quantity = models.DecimalField(null=True,max_digits=6, decimal_places=2)
+    limit = models.IntegerField(null=True)
+    protein = models.DecimalField(null=True,max_digits=6, decimal_places=2)
+    carbs = models.DecimalField(null=True,max_digits=6, decimal_places=2)
+    fat = models.DecimalField(null=True,max_digits=6, decimal_places=2)
+    calories = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
+
+    def updateNutrients(self):
+        self.protein = self.food.protein * self.quantity
+        self.carbs = self.food.carbs * self.quantity
+        self.fat = self.food.fat * self.quantity
+        self.calories = self.food.calories * self.quantity
 
 #---------------------------------------------
 
