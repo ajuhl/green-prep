@@ -16,8 +16,15 @@ class Food(models.Model):
     calories = models.IntegerField()
     protein = models.FloatField()
     carbs = models.FloatField()
-    # fiber = models.DecimalField( decimal_places=2)
-    fat = models.FloatField()
+    # fiber = models.DecimalField()
+    # total_fat = models.FloatField(default = -1)
+    # sodium = models.FloatField(default = -1)
+    # potassium = models.FloatField(default = -1)
+    # sugars = models.FloatField(default = -1)
+    # magnesium = models.FloatField(default = -1)
+    # cholesterol = models.FloatField(default = -1)
+    # sat_fat = models.FloatField(default = -1)
+    # trans_fat = models.FloatField(default = -1)
 
     def __str__(self):
         return self.name
