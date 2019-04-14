@@ -25,7 +25,8 @@ class Food(models.Model):
     # cholesterol = models.FloatField(default = -1)
     # sat_fat = models.FloatField(default = -1)
     # trans_fat = models.FloatField(default = -1)
-
+    fiber = models.FloatField()
+    fat = models.FloatField()
 
     def __str__(self):
         return self.name
