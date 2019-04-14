@@ -26,6 +26,7 @@ class Food(models.Model):
     # sat_fat = models.FloatField(default = -1)
     # trans_fat = models.FloatField(default = -1)
 
+
     def __str__(self):
         return self.name
 
@@ -57,7 +58,7 @@ class Meal(models.Model):
     #potentially add info for 'bounds' as in 'no more than 20oz chicken please'
 
 
-    #mini model rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr- holding only many to many relationship to foods, and
+    #mini model- holding only many to many relationship to foods, and
     # also the portion of food that will be in it
     #start serving size as null, will change once the food has been added in?
     #or does the class just hold on to these values and work only with the food objects, then
@@ -101,7 +102,7 @@ class MealItem(models.Model):
     calories = models.IntegerField(null=True)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.food.name + " - " + self.meal.meal_name + " - " + self.meal.creator_id)
 
     def updateNutrients(self):
         self.protein = self.food.protein * self.quantity
