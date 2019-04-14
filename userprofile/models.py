@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class Profile(models.Model):
     # Personal Info
     #user_id - is username enough? if not we can generate an id
@@ -14,8 +15,6 @@ class Profile(models.Model):
         ('F', 'Female'),
         ('M', 'Male'),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     sex = models.CharField(max_length=1, choices=SEX_CHOICES)
     # Height stored in cm?
     height = models.DecimalField(max_digits=5, decimal_places=2, null=True)
