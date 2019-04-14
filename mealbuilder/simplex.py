@@ -83,11 +83,6 @@ def simplexMacro(Foods,Constraints,upperBounds):
 #gets context from the meal builder form?
 def OptimizeMeal(meal):
 
-    #import ipdb; ipdb.set_trace()
-
-    #how to access just the mealitems with the foreign key to this meal?
-
-
     goalMacros = np.zeros((3,1),dtype=float)
     goalMacros[0,0] = meal.protein_goal
     goalMacros[1,0] = meal.carb_goal
