@@ -6,9 +6,10 @@ class MealBuilderForm(forms.Form):
     protein_goal = forms.IntegerField(initial=50) #this will be initialized from day goalMacros
     carb_goal = forms.IntegerField(initial=30)
     fat_goal = forms.IntegerField(initial=20)
-
-    food_1 = forms.ModelChoiceField(initial=Food.objects.get(pk=535),queryset=Food.objects.all().order_by('name'))
+#param for ModelChoiceField -> initial=Food.objects.get(pk=535),
+    food_1 = forms.ModelChoiceField(queryset=Food.objects.all().order_by('name'))
     food_1_limit = forms.IntegerField(required=False)
 
-    food_2 = forms.ModelChoiceField(initial=Food.objects.get(pk=1860),queryset=Food.objects.all().order_by('name'))
+#param for ModelChoiceField -> initial=Food.objects.get(pk=1860),
+    food_2 = forms.ModelChoiceField(queryset=Food.objects.all().order_by('name'))
     food_2_limit = forms.IntegerField(required=False)
