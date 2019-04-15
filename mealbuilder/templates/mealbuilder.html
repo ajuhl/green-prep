@@ -1,27 +1,21 @@
 {% extends "base_generic.html" %}
 
-
+{% block title %}
+Meal
+{% endblock %}
 {% block content %}
+<div class="clearfix">
+  <a class="btn btn-info left" href="{% url 'mealcalendar:mealcalendar' %}"> Calendar </a>
+</div>
 <p> {{message}} </p>
 
 <h2>Create Meal</h2>
   <form method="post">
     {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Optimize Meal</button>
-    <br/>
-    Calories {{meal.calories}}
-</form>
+    <table class="form form-table">
+      {{ form }}
+      <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Optimize Meal </button></td></tr>
+    </table>
+  </form>
 
 {% endblock %}

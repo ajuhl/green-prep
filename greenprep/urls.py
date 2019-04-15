@@ -9,11 +9,10 @@ urlpatterns = [
     path('meals/', include('mealbuilder.urls')),
     path('grocerylist/', include('grocerylist.urls')),
     path('profile/', include('userprofile.urls')),
-    #path('', views.index, name='index'),
-    
+    path('mealcalendar/', include('mealcalendar.urls')),
+
 ]
 
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]
-

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'mealbuilder.apps.MealbuilderConfig',
     'grocerylist.apps.GrocerylistConfig',
     'userprofile.apps.UserprofileConfig',
+    'mealcalendar.apps.MealcalendarConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -131,4 +132,3 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-

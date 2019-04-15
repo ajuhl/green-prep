@@ -56,7 +56,9 @@ class Meal(models.Model):
     #or does the class just hold on to these values and work only with the food objects, then
     #come back and populate the meal object
     #because like, the algorithm needs to know the foods to be able to calculate the serving sizes
-
+    def get_html_url(self):
+        url = reverse('mealcalendar:meal_edit', args=(self.id,))
+        return '<a href="{url}"> {name} </a>'.format(url=url,name=self.meal_name)
 
     def __str__(self):
         return self.meal_name
