@@ -96,7 +96,7 @@ def OptimizeMeal(meal):
     for i in range(numberOfFoods):
         protein = mealItems[i].food.protein
         carbs = mealItems[i].food.carbs
-        fat = mealItems[i].food.fat
+        fat = mealItems[i].food.total_fat
         foodComposition[:,i] = np.array([[protein,carbs,fat]])
 
         foodLimit = mealItems[i].limit

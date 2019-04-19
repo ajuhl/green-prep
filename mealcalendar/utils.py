@@ -23,7 +23,7 @@ class Calendar(HTMLCalendar):
 			d += '<li> {name} </li>'.format(name=meal.meal_name)
 
 		if day != 0:
-			return "<td><span class='date'>{day}</span><ul> {d} </ul></td>".format(day=day,d=d)
+			return "<td ondblclick='test(test.html)'><span class='date'>{day}</span><ul> {d} </ul></td>".format(day=day,d=d)
 		return '<td></td>'
 
 	# formats a week as a tr

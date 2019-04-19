@@ -92,7 +92,7 @@ class Meal(models.Model):
 # MealItem objects are unique to their meals - even if several meals all contain
 # 1 serving of chicken, new identical objects will be created for all of them
 class MealItem(models.Model):
-    meal = models.ForeignKey(Meal, on_delete=models.PROTECT)
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
     food = models.ForeignKey(Food, on_delete=models.PROTECT)
     #per 100g portion - this is what the USDA database provides for all entries
     quantity = models.FloatField(null=True)
@@ -108,7 +108,7 @@ class MealItem(models.Model):
     def updateNutrients(self):
         self.protein = self.food.protein * self.quantity
         self.carbs = self.food.carbs * self.quantity
-        self.fat = self.food.fat * self.quantity
+        self.fat = self.food.total_fat * self.quantity
         self.calories = self.food.calories * self.quantity
         self.save()
 
