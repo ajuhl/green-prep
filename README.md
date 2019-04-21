@@ -6,6 +6,8 @@ GreepPrep is a meal preparation web application, created with Django that determ
 
 ## Objective
 
+The main function of the nutrition app will be to optimize meals that meet the user’s nutrient goals. This is accomplished by creating a system of equations that corresponds to the nutrient break down of each food and includes lower and upper bounds. Once the system is defined, the Simplex Method was used to generate the optimal meal.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
