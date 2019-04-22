@@ -6,13 +6,10 @@ from django.views import generic
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 import calendar
-from mealbuilder.simplex import OptimizeMeal
 
 from .models import *
-from mealbuilder.models import Meal
 from .utils import Calendar
 from .forms import EventForm
-from mealbuilder.forms import MealBuilderForm
 
 
 class CalendarView(generic.ListView):
@@ -54,10 +51,10 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
-def event(request, event_id=None):
+def event(request, start_time=None):
     instance = Event()
-    if event_id:
-        instance = get_object_or_404(Event, pk=event_id)
+    if start_time:
+        instance = get_object_or_404(Event, start_time=start_time)
     else:
         instance = Event()
 
@@ -66,50 +63,3 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('mealcalendar:mealcalendar'))
     return render(request, 'mealcalendar/event.html', {'form': form})
-
-
-def meal(request, meal_id=None):
-    context = {
-        'message': 'Hello, world. You\'re at the mealbuilder index.',
-    }
-    instance = Meal()
-    if meal_id:
-        instance = get_object_or_404(Event, pk=meal_id)
-    else:
-        instance = Meal()
-
-    form = MealBuilderForm(request.POST or None, instance=instance)
-    if request.POST and form.is_valid():
-        meal = CreateMealFromFormData(form)
-        optimized_meal = OptimizeMeal(meal)
-        context.update({
-            'optimized_meal': meal,
-            'message': meal.meal_name + " successfully created",
-        })
-        return HttpResponseRedirect(reverse('mealcalendar:mealcalendar'))
-    return render(request, 'mealcalendar/mealbuilder.html', {'form': form})
-
-
-def CreateMealFromFormData(form):
-    meal = Meal(
-        meal_name = form.cleaned_data.get('meal_name'),
-        protein_goal = form.cleaned_data.get('protein_goal'),
-        carb_goal = form.cleaned_data.get('carb_goal'),
-        fat_goal = form.cleaned_data.get('fat_goal')
-    )
-    meal.save()
-
-    meal_item_1 = meal.mealitem_set.create(
-        food = form.cleaned_data.get('food_1'),
-        limit = form.cleaned_data.get('food_1_limit')
-    )
-    meal_item_1.save()
-
-
-    meal_item_2 = meal.mealitem_set.create(
-        food = form.cleaned_data.get('food_2'),
-        limit = form.cleaned_data.get('food_2_limit')
-    )
-    meal_item_2.save()
-
-    return meal

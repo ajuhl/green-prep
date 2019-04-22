@@ -1,0 +1,10 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
+	<a class="btn btn-info right" href="{% url 'plan_edit' %}({{date}})"> Create Plan </a>
+  <a class="btn btn-info right" href="{% url 'calendar' %}"> Select Plan </a>
+
+</div>
+{% endblock %}

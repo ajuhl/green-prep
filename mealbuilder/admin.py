@@ -1,9 +1,12 @@
 from django.contrib import admin
 
-from .models import Day, Food, Meal, MealItem
+from .models import Plan, Food, Meal, MealFood, SavedMeal, SavedPlan, Event
 
 # Register your models here.
 admin.site.register(Food)
 admin.site.register(Meal)
-admin.site.register(MealItem)
-admin.site.register(Day)
+admin.site.register(MealFood)
+admin.site.register(Plan)
+admin.site.register(SavedMeal)
+admin.site.register(SavedPlan)
+admin.site.register(Event)

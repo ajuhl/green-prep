@@ -5,9 +5,9 @@ from django.urls import reverse
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    description = models.TextField(null=True)
+    start_time = models.DateField(null=True)
+    end_time = models.DateField(null=True)
 
     @property
     def get_html_url(self):

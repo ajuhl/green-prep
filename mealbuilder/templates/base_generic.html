@@ -19,7 +19,9 @@
       {% block sidebar %}
         <ul class="sidebar-nav">
           Hello, <a href="{% url 'profile' %}"> {{user.get_username}}</a><br/>
-          <a href="{% url 'mealbuilder' %}">Meal Builder</a><br/>
+          <a href="{% url 'calendar' %}">Calendar</a><br/>
+          <a href="{% url 'plan_new' %}">Plan</a><br/>
+          <a href="{% url 'meal' %}">Meal</a><br/>
           <a href="{% url 'grocerylist' %}">Grocery List</a><br/>
         </ul>
      {% endblock %}

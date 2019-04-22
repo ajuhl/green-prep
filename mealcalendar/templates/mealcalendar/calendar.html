@@ -5,13 +5,12 @@
 	<a class="btn btn-info left" href="{% url 'mealcalendar:mealcalendar' %}?{{ prev_month }}"> Previous Month </a>
 	<a class="btn btn-info right" href="{% url 'mealcalendar:mealcalendar' %}?{{ next_month }}"> Next Month </a>
   <a class="btn btn-info right" href="{% url 'mealcalendar:event_new' %}"> New Event </a>
-	<a class="btn btn-info right" href="{% url 'mealcalendar:meal_new' %}"> New Meal </a>
 
 </div>
 {{ calendar }}
 <script>
 	function test(url) {
-		window.location = "http://127.0.0.1:8000/meals/"
+		window.location = "http://127.0.0.1:8000/mealcalendar/"
 	}
 </script>
 {% endblock %}
