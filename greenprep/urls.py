@@ -9,7 +9,9 @@ urlpatterns = [
     path('meals/', include('mealbuilder.urls')),
     path('grocerylist/', include('grocerylist.urls')),
     path('profile/', include('userprofile.urls')),
-    #path('', views.index, name='index'),
+    path('home/', include('home.urls')),
+    path('', views.index, name='index'),
+
     
 ]
 
