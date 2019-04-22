@@ -8,7 +8,7 @@ from django.utils import timezone
 import calendar
 
 
-from .forms import MealForm, PlanForm
+from .forms import MealForm, PlanForm, PlanNoneForm
 from .models import Food, Meal, Plan, MealFood, Event
 from .simplex import OptimizeMeal
 from .utils import Calendar
@@ -132,4 +132,15 @@ def plan(request, date=None):
     return render(request, 'plan.html', {'form': form})
 
 def plan_none(request, date=None):
-    return render(request, 'plan_none.html', {'date': date})
+    instance = Plan()
+    if date:
+        try:
+            instance = Plan.objects.get(date=date)
+        except Plan.DoesNotExist:
+            instance = Plan(date=date, create_date=timezone.now())
+    else:
+        instance = Plan()
+
+    form = PlanNoneForm(request.GET or None)
+    return render(request, 'plan_none.html', {'form': form, 'date': date})
+    #return render(request, 'plan_none.html', {'date': date})
