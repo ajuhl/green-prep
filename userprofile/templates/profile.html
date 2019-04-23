@@ -1,44 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    {% block title %}<title>Green Prep - Create Profile</title>{% endblock %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- Add additional CSS in static file -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  </head>
-  <body>
-    <h1 align = "center">Create a Profile</h1>
-    <form method = "POST" class = "post-user" align= "center">
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<p>
+    <form method = "POST">
       {% csrf_token %}
       <div class="fieldWrapper">
-        <label for="id_subject">Enter Your Birthday:</label>
+
+        <label for="birthdate">Birthdate:</label>
         {{ form.birthdate }}
       </div>
+
       <div class="fieldWrapper">
-        <label for="id_subject">Enter Your sex:</label>
-        {{ form.sex }}
+
+          <label for="birthdate">Sex:</label>
+          {{ form.sex }}
       </div>
+
       <div class="fieldWrapper">
-        <label for="id_subject">Enter Your Height:</label>
-        {{ form.height }}
+
+          <label for="birthdate">Height:</label>
+          {{ form.height }}
       </div>
+
       <div class="fieldWrapper">
-        <label for="id_subject">Enter Your Weight:</label>
-        {{ form.weight }}
+
+          <label for="birthdate">Weight:</label>
+          {{ form.weight }}
       </div>
+
       <div class="fieldWrapper">
-        <label for="id_subject">Enter Your activity level:</label>
-        {{ form.activity_level }}
+
+          <label for="birthdate">Activity Level:</label>
+          {{ form.activity_level }}
       </div>
+
       <div class="fieldWrapper">
-        <label for="id_subject">Enter Your physical goal:</label>
-        {{ form.physical_goal }}
+
+          <label for="birthdate">Physical Goal:</label>
+          {{ form.physical_goal }}
       </div>
 
       <button type = "submit">Submit</button>
     </form>
-  </body>
-</html>
+</p>
+{% endblock %}
