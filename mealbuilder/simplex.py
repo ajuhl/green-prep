@@ -2,7 +2,7 @@
 import math
 import numpy as np
 from numpy import linalg as la
-from .models import Food, Meal, MealItem
+from .models import Food, Meal, MealFood
 
 def vertcat(arr1,arr2):
     return np.concatenate((arr1,arr2),axis=0)
@@ -88,18 +88,18 @@ def OptimizeMeal(meal):
     goalMacros[1,0] = meal.carb_goal
     goalMacros[2,0] = meal.fat_goal
 
-    mealItems = meal.mealitem_set.all()
-    numberOfFoods = mealItems.count()
+    mealFoods = meal.mealfoods.all()
+    numberOfFoods = mealFoods.count()
     foodComposition = np.zeros((3,numberOfFoods),dtype=float)
     upperBounds = np.zeros((numberOfFoods,1),dtype=float)
 
     for i in range(numberOfFoods):
-        protein = mealItems[i].food.protein
-        carbs = mealItems[i].food.carbs
-        fat = mealItems[i].food.fat
+        protein = mealFoods[i].food.protein
+        carbs = mealFoods[i].food.carbs
+        fat = mealFoods[i].food.total_fat
         foodComposition[:,i] = np.array([[protein,carbs,fat]])
 
-        foodLimit = mealItems[i].limit
+        foodLimit = mealFoods[i].limit
         if foodLimit is None:
             upperBounds[i,0] = float('inf')
         else:
@@ -110,7 +110,7 @@ def OptimizeMeal(meal):
     servingSizes=simplexMacro(foodComposition,lConstraints,rConstraints)
 
     for i in range(numberOfFoods):
-        item = mealItems[i]
+        item = mealFoods[i]
         item.quantity = servingSizes[i,0]
         item.updateNutrients()
 

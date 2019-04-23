@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="clearfix">
+	<a class="btn btn-info left" href="{% url 'calendar' %}?{{ prev_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{% url 'calendar' %}?{{ next_month }}"> Next Month </a>
+</div>
+{{ calendar }}
+<script>
+	function goToPlan(date) {
+		window.location = "plan/edit/("+date+")"
+	}
+	function goToDate(date) {
+		window.location = "plan/none/("+date+")"
+	}
+</script>
+{% endblock %}
