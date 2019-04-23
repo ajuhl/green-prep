@@ -9,7 +9,7 @@ import calendar
 
 
 from .forms import MealForm, PlanForm, PlanNoneForm
-from .models import Food, Meal, Plan, MealFood, Event
+from .models import Food, Meal, Plan, MealFood
 from .simplex import OptimizeMeal
 from .utils import Calendar
 
@@ -76,7 +76,7 @@ def CreateMeal(form):
     return meal
 
 class CalendarView(generic.ListView):
-    model = Event
+    model = Plan
     template_name = 'calendar.html'
 
     def get_context_data(self, **kwargs):

@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'mealbuilder.apps.MealbuilderConfig',
     'grocerylist.apps.GrocerylistConfig',
     'userprofile.apps.UserprofileConfig',
-    'mealcalendar.apps.MealcalendarConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

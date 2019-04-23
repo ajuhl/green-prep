@@ -9,7 +9,7 @@ urlpatterns = [
     path('meal/', include('mealbuilder.urls')),
     path('grocerylist/', include('grocerylist.urls')),
     path('profile/', include('userprofile.urls')),
-    path('mealcalendar/', include('mealcalendar.urls')),
+    path('', views.index, name='index'),
 
 ]
 

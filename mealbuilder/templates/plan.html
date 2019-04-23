@@ -1,14 +1,8 @@
 {% extends "base_generic.html" %}
 
-{% block title %}
-Plan
-{% endblock %}
 {% block content %}
-<div class="clearfix">
-  <a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
-</div>
 <p> {{message}} </p>
-<h2>Create Plan</h2>
+<h2>Plan</h2>
   <form method="post">
     {% csrf_token %}
     <table class="form form-table">
