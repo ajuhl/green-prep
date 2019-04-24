@@ -1,10 +1,9 @@
 {% extends "base_generic.html" %}
 
-
 {% block content %}
-<p> {{message}} </p>
-
-<h2>Create Meal</h2>
+<div class="htmlContent">
+<p>
+<h2>Meal</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -19,9 +18,9 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Optimize Meal</button>
+    <button class="btn btn-info left" type="submit">Optimize Meal</button>
     <br/>
-    Calories {{meal.calories}}
 </form>
-
+</p>
+</div>
 {% endblock %}

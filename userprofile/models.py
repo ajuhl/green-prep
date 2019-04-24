@@ -7,7 +7,6 @@ from django.dispatch import receiver
 class Profile(models.Model):
     # Personal Info
     #user_id - is username enough? if not we can generate an id
-    user_id = 1
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     birthdate = models.DateField(null=True, blank=True)
@@ -53,9 +52,9 @@ class Profile(models.Model):
 
     #METHODS - calculate by default, but allow user input
     #upon updates to other parts, don't change this without getting clear consent
-    p_goal = models.IntegerField(null=True, blank=True)
-    c_goal = models.IntegerField(null=True, blank=True)
-    f_goal = models.IntegerField(null=True, blank=True)
+    protein_goal = models.PositiveSmallIntegerField(null=True, blank=True)
+    carb_goal = models.PositiveSmallIntegerField(null=True, blank=True)
+    fat_goal = models.PositiveSmallIntegerField(null=True, blank=True)
 
     #list of their hearted meal objects that they want to go back to
     #list of hearted day plans (which are lists of meal objects)
