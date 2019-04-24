@@ -13,6 +13,10 @@
     <h1 align = "center">Create a Profile</h1>
     <form method = "POST" class = "post-user" align= "center">
       {% csrf_token %}
+      <!-- <div class="fieldWrapper">
+        <label for="id_subject">Enter Your Birthday:</label>
+        {{ form.user.username }}
+      </div> -->
       <div class="fieldWrapper">
         <label for="id_subject">Enter Your Birthday:</label>
         {{ form.birthdate }}
