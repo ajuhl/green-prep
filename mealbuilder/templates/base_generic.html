@@ -26,19 +26,8 @@
             </div>
             <ul class="list-unstyled components">
                 Hello, <a href="{% url 'profile' %}"> {{user.get_username}}</a><br/>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
+                <li>
+                        <a href="{% url 'index' %}">Home</a>
                 </li>
                 <li>
                     <a href="#">About</a>
@@ -56,7 +45,7 @@
                     <a href="{% url 'grocerylist' %}">Grocery List</a><br/>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="{% url 'logout' %}">Sign Out</a>
                 </li>
             </ul>
         </nav>
