@@ -1,0 +1,46 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<p>
+    <form method = "POST">
+      {% csrf_token %}
+      <div class="fieldWrapper">
+
+        <label for="birthdate">Birthdate:</label>
+        {{ form.birthdate }}
+      </div>
+
+      <div class="fieldWrapper">
+
+          <label for="birthdate">Sex:</label>
+          {{ form.sex }}
+      </div>
+
+      <div class="fieldWrapper">
+
+          <label for="birthdate">Height:</label>
+          {{ form.height }}
+      </div>
+
+      <div class="fieldWrapper">
+
+          <label for="birthdate">Weight:</label>
+          {{ form.weight }}
+      </div>
+
+      <div class="fieldWrapper">
+
+          <label for="birthdate">Activity Level:</label>
+          {{ form.activity_level }}
+      </div>
+
+      <div class="fieldWrapper">
+
+          <label for="birthdate">Physical Goal:</label>
+          {{ form.physical_goal }}
+      </div>
+
+      <button type = "submit">Submit</button>
+    </form>
+</p>
+{% endblock %}
