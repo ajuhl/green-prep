@@ -2,45 +2,21 @@
 {% load static %}
 {% block content %}
 <p>
-    <form method = "POST">
-      {% csrf_token %}
-      <div class="fieldWrapper">
+    <h1>{{request.user.first_name }} {{user.last_name }}<br/></h1>
 
-        <label for="birthdate">Birthdate:</label>
-        {{ form.birthdate }}
-      </div>
+    <p><h3> {{ request.user.username }}</h3> </p>
+<p>
+    Birthdate: {{ user.profile.birthdate }} <br>
+    Sex: {{ user.profile.sex }} <br/>
+    Height: {{ user.profile.height }} inches<br/>
+    Weight: {{ user.profile.weight }} pounds<br/>
+    Activity Level: {{ request.user.profile.ACTIVITY_LEVEL.0.1}} <br/>
+    Physical Goal: {{ request.user.profile.PHYSICAL_GOAL.1.1 }} <br/>
 
-      <div class="fieldWrapper">
+</p>
 
-          <label for="birthdate">Sex:</label>
-          {{ form.sex }}
-      </div>
+    <br/>
 
-      <div class="fieldWrapper">
-
-          <label for="birthdate">Height:</label>
-          {{ form.height }}
-      </div>
-
-      <div class="fieldWrapper">
-
-          <label for="birthdate">Weight:</label>
-          {{ form.weight }}
-      </div>
-
-      <div class="fieldWrapper">
-
-          <label for="birthdate">Activity Level:</label>
-          {{ form.activity_level }}
-      </div>
-
-      <div class="fieldWrapper">
-
-          <label for="birthdate">Physical Goal:</label>
-          {{ form.physical_goal }}
-      </div>
-
-      <button type = "submit">Submit</button>
-    </form>
+    <p><a href="{% url 'profile_edit' %}">Edit Profile</a><br/></p>
 </p>
 {% endblock %}
