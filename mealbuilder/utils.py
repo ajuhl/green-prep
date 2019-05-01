@@ -15,7 +15,7 @@ class Calendar(HTMLCalendar):
 		d = ''
 		date = "'{year}-{month}-{day}'".format(year=self.year,month=self.month,day=day)
 		try:
-			plan = Plan.objects.get(date__year=self.year, date__month=self.month, date__day=day, profile=2)
+			plan = Plan.objects.get(date__year=self.year, date__month=self.month, date__day=day)
 		except Plan.DoesNotExist:
 			plan = None
 		if plan is not None:

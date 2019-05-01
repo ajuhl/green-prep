@@ -134,19 +134,16 @@ def plan(request, date=None, id=None):
     form = PlanForm(request.POST or None, instance=instance, id=id)
     if request.method == 'POST' and form.is_valid():
         plan = form.save()
+        plan.meal.clear()
         meals = set()
-        i = 1
-        field_name = 'meal_%s' % (i,)
-        while request.POST.get(field_name):
-            meal = request.POST.get(field_name)
-            if meal in meals:
-                self.add_error(field_name, 'Duplicate')
-            else:
-                meals.add(meal)
-                plan.meal.add(Meal.objects.get(pk=meal))
-            i += 1
-            field_name = 'meal_%s' % (i,)
-
+        for field_name in request.POST:
+            if field_name.startswith('meal_'):
+                meal = request.POST.get(field_name)
+                if meal in meals:
+                    pass
+                else:
+                    meals.add(meal)
+                    plan.meal.add(Meal.objects.get(pk=meal))
         return HttpResponseRedirect(reverse('calendar'))
     else:
         error = form.errors

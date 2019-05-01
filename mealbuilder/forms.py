@@ -57,13 +57,14 @@ class PlanForm(ModelForm):
         super().__init__(*args, **kwargs)
         if id:
             meals = Plan.objects.get(pk=id).meal.all()
-        elif self.instance is None:
-            meals = set()
         else:
-            meals = self.instance.meal.all()
+            try:
+                meals = self.instance.meal.all()
+            except:
+                meals = set()
         for i in range(len(meals)):
             field_name = 'meal_%s' % (i+1,)
-            self.fields[field_name] = forms.ModelChoiceField(queryset=Meal.objects.all())
+            self.fields[field_name] = forms.ModelChoiceField(queryset=Meal.objects.all(),required=False)
             self.fields[field_name].label = "Meal"
             try:
                 self.initial[field_name] = meals[i].id
@@ -73,6 +74,7 @@ class PlanForm(ModelForm):
         if len(meals) == 0:
             field_name = 'meal_1'
             self.fields[field_name] = forms.ModelChoiceField(queryset=Meal.objects.all())
+            self.fields[field_name].label = "Meal"
 
     def clean(self):
         meals = set()
