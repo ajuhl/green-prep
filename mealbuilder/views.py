@@ -115,32 +115,43 @@ def next_month(d):
     return month
 
 
-def plan(request, date=None):
+def plan(request, date=None, id=None):
     instance = Plan()
     if date:
-        try:
-            instance = Plan.objects.get(date=date)
-        except Plan.DoesNotExist:
-            instance = Plan(date=date, create_date=timezone.now())
+        if id:
+            instance = Plan.objects.get(pk=id)
+            instance.pk = None
+            instance.date = date
+            instance.create_date = timezone.now()
+            instance.name = '{name}-COPY'.format(name=instance.name)
+        else:
+            try:
+                instance = Plan.objects.get(date=date)
+            except Plan.DoesNotExist:
+                instance = Plan(date=date, create_date=timezone.now())
     else:
         instance = Plan()
-
-    form = PlanForm(request.POST or None, instance=instance)
-    if request.POST and form.is_valid():
-        form.save()
+    form = PlanForm(request.POST or None, instance=instance, id=id)
+    if request.method == 'POST' and form.is_valid():
+        plan = form.save()
+        plan.meal.clear()
+        meals = set()
+        for field_name in request.POST:
+            if field_name.startswith('meal_'):
+                meal = request.POST.get(field_name)
+                if meal in meals:
+                    pass
+                else:
+                    meals.add(meal)
+                    plan.meal.add(Meal.objects.get(pk=meal))
         return HttpResponseRedirect(reverse('calendar'))
-    return render(request, 'plan.html', {'form': form})
-
-def plan_none(request, date=None):
-    instance = Plan()
-    if date:
-        try:
-            instance = Plan.objects.get(date=date)
-        except Plan.DoesNotExist:
-            instance = Plan(date=date, create_date=timezone.now())
     else:
-        instance = Plan()
+        error = form.errors
+    return render(request, 'plan.html', {'form': form, 'date':date, 'id':id})
 
-    form = PlanNoneForm(request.GET or None)
-    return render(request, 'plan_none.html', {'form': form, 'date': date})
-    #return render(request, 'plan_none.html', {'date': date})
+def plan_none(request, date=None, id=None):
+    instance = Plan()
+    form = PlanNoneForm(request.POST or None)
+    if request.POST and form.is_valid():
+        id = request.POST.get('plan', default=None)
+    return render(request, 'plan_none.html', {'form': form, 'date': date, 'id':id})

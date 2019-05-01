@@ -147,7 +147,7 @@ class Plan(models.Model):
     carb_actual = models.FloatField(null=True)
     fat_actual = models.FloatField(null=True)
 
-    meal = models.ManyToManyField(Meal, related_name='plans')
+    meal = models.ManyToManyField(Meal, related_name='plans', null=True)
 
     @property
     def get_html_url(self):

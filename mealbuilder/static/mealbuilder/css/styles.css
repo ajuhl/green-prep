@@ -143,3 +143,13 @@ a {
   padding: 5px;
   width: 100%;
 }
+
+
+.entry:not(:first-of-type)
+{
+    margin-top: 10px;
+}
+
+{
+    font-size: 12px;
+}
