@@ -44,6 +44,7 @@ class PlanForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
       super(PlanForm, self).__init__(*args, **kwargs)
+      hi
 
 class PlanNoneForm(forms.Form):
     plan = forms.ModelChoiceField(queryset=Plan.objects.all().order_by('create_date'))
