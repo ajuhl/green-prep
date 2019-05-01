@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import UserForm
+from django import template
+
 
 def profile(request):
     # return HttpResponse("Hello, world. You're at the user profile page.")
@@ -15,8 +17,9 @@ def profile(request):
     # return render(request, 'profile.html', {
     #     'form' : form,
     # })
-    form = UserForm()
-    return render(request, 'profile.html', {'form': form})
+
+    #form = UserForm()
+    #return render(request, 'profile.html', {'form': form})
     # if request.method == 'POST':
     #     form = UserForm(request.POST, instance = request.user.profile)
     #     if form.is_valid:
@@ -36,4 +39,9 @@ def profile(request):
     #     args.update(csrf(request))
     #     args['form'] = form
     #
-    #     return render_to_response('profile.html', args)
+    #import ipdb; ipdb.set_trace()
+    return render(request, 'profile.html')
+
+def profile_edit(request):
+    form = UserForm()
+    return render(request, 'profile_edit.html', {'form': form})
