@@ -53,10 +53,6 @@ class PlanForm(ModelForm):
         exclude=('field_count','profile','create_date','date','meal')
 
     def __init__(self, *args, **kwargs):
-<<<<<<< HEAD
-      super(PlanForm, self).__init__(*args, **kwargs)
-      hi
-=======
         id = kwargs.pop('id', None)
         super().__init__(*args, **kwargs)
         if id:
@@ -79,7 +75,6 @@ class PlanForm(ModelForm):
             field_name = 'meal_1'
             self.fields[field_name] = forms.ModelChoiceField(queryset=Meal.objects.all())
             self.fields[field_name].label = "Meal"
->>>>>>> master
 
     def clean(self):
         meals = set()
