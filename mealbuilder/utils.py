@@ -22,13 +22,14 @@ class Calendar(HTMLCalendar):
 			meals = plan.meal.all()
 
 			for meal in meals:
-				d += '<li> {name} </li>'.format(name=meal.name)
+				d += '<div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"><div class="fc-event-inner"><span class="fc-event-title">{name}</span></div></div>'.format(name=meal.name)
 			if day != 0:
-				return '<td class="fc-day fc-widget-content" ondblclick="goToPlan({date})"><span class="date">{day}</span><ul> {d} </ul></td>'.format(date=date,day=day,d=d)
-			return '<td></td>'
+				return '<td class="fc-day fc-widget-content" ondblclick="goToPlan({date})"><div style="min-height: 106px;"><div class="fc-day-number">{day}</div><div class="fc-day-content"><div style="position: relative; height: 84px;">{d}</div></div</td>'.format(date=date,day=day,d=d)
+			return '<td class="fc-day fc-widget-content"></td>'
+
 		if day != 0:
-			return '<td class="fc-day fc-widget-content" ondblclick="goToDate({date})"><span class="date">{day}</span><ul> {d} </ul></td>'.format(date=date,day=day,d=d)
-		return '<td></td>'
+			return '<td class="fc-day fc-widget-content" ondblclick="goToDate({date})"><div style="min-height: 106px;"><div class="fc-day-number">{day}</div><div class="fc-day-content"><div style="position: relative; height: 84px;">{d}</div></div</td>'.format(date=date,day=day,d=d)
+		return '<td class="fc-day fc-widget-content"></td>'
 
 	# formats a week as a tr
 	def formatweek(self, theweek):
@@ -48,18 +49,17 @@ class Calendar(HTMLCalendar):
 		else:
 			s = '%s' % month_name[themonth]
 
-		prev_month = '<tr class="fc-header"><th colspan="2" class="fc-header-left"><span class="fc-button fc-button-prev fc-state-default fc-corner-left" unselectable="on" onclick="get_prev()"><span class="fc-text-arrow"><</span></span></th>'
-		title = '<th colspan="3" class="fc-header-center"><span class="fc-header-title"><h2>%s</h2></span></th>' % s
-		next_month = '<th colspan="2" class="fc-header-right"><span class="fc-button fc-button-next fc-state-default fc-corner-right" unselectable="on" onclick="get_next()"><span class="fc-text-arrow">></span></span></th></tr>'
+		prev_month = '<table class="fc-header" style="width:100%"><tbody><tr><td class="fc-header-left"><span class="fc-button fc-button-prev fc-state-default fc-corner-left" unselectable="on" onclick="get_prev()"><span class="fc-text-arrow"><</span></span></td>'
+		title = '<td class="fc-header-center"><span class="fc-header-title"><h2>%s</h2></span></td>' % s
+		next_month = '<td class="fc-header-right"><span class="fc-button fc-button-next fc-state-default fc-corner-right" unselectable="on" onclick="get_next()"><span class="fc-text-arrow">></span></span></td></tr></tbody></table>'
 		return prev_month+title+next_month
 
 
 	# formats a month as a table
 	# filter events by year and month
 	def formatmonth(self, withyear=True):
-		cal = '<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
-		cal += '{formatmonthname}\n'.format(formatmonthname=self.formatmonthname(self.year, self.month, withyear=withyear))
-		cal += '{formatweekheader}\n'.format(formatweekheader=self.formatweekheader())
+		cal = '<div id="wrap"><div id="calendar" class="fc fc-ltr">{formatmonthname}\n'.format(formatmonthname=self.formatmonthname(self.year, self.month, withyear=withyear))
+		cal += '<div class="fc-view fc-view-month fc-grid" style="position: relative" unselectable="on"><table class="fc-border-separate" style="width:100%" cellspacing="0"><thead>{formatweekheader}</thead><tbody>\n'.format(formatweekheader=self.formatweekheader())
 		for week in self.monthdays2calendar(self.year, self.month):
 			cal += '{formatweek}\n'.format(formatweek=self.formatweek(week))
-		return cal
+		return cal+'</tbody></table></div></div></div>'

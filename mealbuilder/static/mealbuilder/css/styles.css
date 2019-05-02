@@ -6,7 +6,7 @@
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #6dcc91;
+    background: #6BE5B0;
     color: #fff;
     transition: all 0.3s;
 }
@@ -55,12 +55,12 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6dcc91;
+    background: #6BE5B0;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #6dcc91;
+    border-bottom: 1px solid #6BE5B0;
 }
 
 #sidebar ul p {
@@ -75,31 +75,40 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #6dcc91;
-    background: #fff;
+    color: #717979;
+    background: #DBFAED;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6dcc91;
+    background: #6BE5B0;
 }
 
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6dcc91;
+    background: #6BE5B0;
 }
 
-.calendar {
-  width: 75%;
-  margin: auto;
-  font-size: 13px;
-  margin: 2% auto;
-  border-radius: 6px;
-  box-shadow: 0 1px 2px #C3C3C3;
-  -webkit-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
-  -moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
-  box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+#wrap {
+  width: 100%;
+  margin: 0 auto;
+  }
+
+  #calendar {
+/* 		float: right; */
+        margin: 2% auto;
+		width: 95%;
+		background-color: #FFFFFF;
+		  border-radius: 6px;
+        box-shadow: 0 1px 2px #C3C3C3;
+		-webkit-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+-moz-box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
+		}
+
+*, ::after, ::before {
+    box-sizing: content-box;
 }
 
 
@@ -107,12 +116,6 @@ ul ul a {
   padding: 10px;
   text-align: center;
   font-size: 18px;
-}
-
-.calendar td {
-  width: 200px;
-  height: 150px;
-  padding: 20px 0px 0px 5px;
 }
 
 .month {
@@ -129,7 +132,7 @@ ul {
 }
 
 a {
-  color: #6c757d;
+  color: #717979;
 }
 
 
@@ -148,10 +151,6 @@ a {
   box-shadow: 0 0 0 0;
 }
 
-.clearfix {
-  margin: 15px;
-}
-
 
 .form {
   margin: auto;
@@ -159,7 +158,7 @@ a {
 
 .form input, .form select, .form textarea {
   border-radius: 5px;
-  border: 1px solid #6c757d;
+  border: 1px solid #717979;
   outline: none;
   background: none;
   padding: 5px;
@@ -196,7 +195,7 @@ td.fc-today {
 
 .fc-first th{
 	font-family: 'Roboto', sans-serif;
-    background:#6dcc91 !important;
+    background:#6BE5B0 !important;
 	color:#FFF;
 	font-size:14px !important;
 	font-weight:500 !important;
@@ -204,7 +203,7 @@ td.fc-today {
 	}
 .fc-event-inner {
 	font-family: 'Roboto', sans-serif;
-    background: #03a9f3!important;
+    background: #979D9D!important;
     color: #FFF!important;
     font-size: 12px!important;
     font-weight: 500!important;
@@ -275,15 +274,15 @@ html .fc,
     font-weight: 100;
     margin-bottom: 10px;
 		font-family: 'Roboto', sans-serif;
-    color: #6dcc91
+    color: #717979
 }
 	span.fc-button {
     font-family: 'Roboto', sans-serif;
-    border-color: #6dcc91;
-	  color: #6dcc91;
+    border-color: #6BE5B0;
+	  color: #6BE5B0;
 }
 .fc-state-down, .fc-state-active {
-    background-color: #6dcc91 !important;
+    background-color: #6BE5B0 !important;
 	color: #FFF !important;
 }
 .fc .fc-header-space {
@@ -855,17 +854,15 @@ table.fc-header{
     min-width: 19px;
     padding: 6px;
     text-align: center;
-       width: 30px;
-    height: 30px;
 }
 .fc-sun, .fc-sat{
     color: #b8b8b8;
 }
 
 .fc-week .fc-day:hover .fc-day-number{
-    background-color: #B8B8B8;
+    background-color: #717979;
     border-radius: 50%;
-    color: #FFFFFF;
+    color: #AEF0D3;
     transition: background-color 0.2s;
 }
 .fc-week .fc-day.fc-state-highlight:hover .fc-day-number{
