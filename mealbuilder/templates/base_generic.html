@@ -3,10 +3,9 @@
 
 <!doctype html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
-  {% block title %}<title>Green Prep</title>{% endblock %}
+  {% block title %}<title>GreenPrep</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
@@ -22,7 +21,7 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Green Prep</h3>
+                <h3>GreenPrep</h3>
             </div>
             <ul class="list-unstyled components">
                 Hello, <a href="{% url 'profile' %}"> {{user.get_username}}</a><br/>
@@ -63,11 +62,11 @@
         <!-- Page Content -->
 
         <div id="content">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav>
                     <div class="container-fluid">
                         <button type="button" id="sidebarCollapse" class="btn btn-info">
                             <i class="fas fa-align-left"></i>
-                            <span>Toggle Sidebar</span>
+                            <span>Menu</span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
@@ -108,7 +107,7 @@ $('#sidebarCollapse').on('click', function () {
 
 });
 </script>
-
+{% block js %}{% endblock js %}
 {% endblock %}
 </body>
 </html>

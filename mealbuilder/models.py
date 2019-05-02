@@ -42,7 +42,7 @@ class Food(models.Model):
 class Meal(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
-    creation_date = models.DateTimeField(default=timezone.now())
+    create_date = models.DateTimeField(default=timezone.now())
 
     protein_goal = models.PositiveSmallIntegerField(null=True)
     carb_goal = models.PositiveSmallIntegerField(null=True)
@@ -102,7 +102,7 @@ class Meal(models.Model):
             self.save()
 
     class Meta:
-        ordering = ['creation_date']
+        ordering = ['create_date']
 
 
 
@@ -147,7 +147,7 @@ class Plan(models.Model):
     carb_actual = models.FloatField(null=True)
     fat_actual = models.FloatField(null=True)
 
-    meal = models.ManyToManyField(Meal, related_name='plans')
+    meal = models.ManyToManyField(Meal, related_name='plans', null=True)
 
     @property
     def get_html_url(self):

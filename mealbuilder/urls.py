@@ -10,5 +10,6 @@ urlpatterns = [
     path('plan/new/', mealbuilder_views.plan, name='plan_new'),
     path('plan/edit/(<date>)', mealbuilder_views.plan, name='plan_edit'),
     path('plan/edit/', mealbuilder_views.plan, name='plan_edit'),
+    path('plan/edit/(<date>)/(<id>)', mealbuilder_views.plan, name='plan_edit'),
     path('plan/none/(<date>)', mealbuilder_views.plan_none, name='plan_none'),
 ]
