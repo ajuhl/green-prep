@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
   <!-- Required meta tags -->
-  {% block title %}<title>Green Prep</title>{% endblock %}
+  {% block title %}<title>GreenPrep</title>{% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
@@ -21,7 +21,7 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Green Prep</h3>
+                <h3>GreenPrep</h3>
             </div>
             <ul class="list-unstyled components">
                 Hello, <a href="{% url 'profile' %}"> {{user.get_username}}</a><br/>
@@ -62,11 +62,11 @@
         <!-- Page Content -->
 
         <div id="content">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav>
                     <div class="container-fluid">
                         <button type="button" id="sidebarCollapse" class="btn btn-info">
                             <i class="fas fa-align-left"></i>
-                            <span>Toggle Sidebar</span>
+                            <span>Menu</span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
@@ -107,68 +107,7 @@ $('#sidebarCollapse').on('click', function () {
 
 });
 </script>
-<script>
-  $(function() {
-    // Remove button click
-    $(document).on(
-        'click',
-        '[data-role="dynamic-fields"] > .form-inline [data-role="remove"]',
-        function(e) {
-            e.preventDefault();
-            $(this).closest('.form-inline').remove();
-        }
-    );
-    // Add button click
-    $(document).on(
-        'click',
-        '[data-role="dynamic-fields"] > .form-inline [data-role="add"]',
-        function(e) {
-            e.preventDefault();
-            var container = $(this).closest('[data-role="dynamic-fields"]');
-            new_field_group = container.children().filter('.form-inline:first-child').clone();
-            new_field_group.find('input').each(function(){
-                $(this).val('');
-            });
-            container.append(new_field_group);
-        }
-    );
-});
-</script>
-<script>
-  $(function()
-{
-
-    $(document).on('click', '.btn-add', function(e)
-    {
-        e.preventDefault();
-
-        var controlForm = $('.controls form:first'),
-            currentEntry = $(this).parents('.entry:first');
-            newEntry = currentEntry.clone();
-            name = newEntry.children('p').children('select').attr('name');
-            n = parseInt(name.split('_')[1])+1;
-            newEntry.children('p').children('select').prop('id','id_meal_'+n);
-            newEntry.children('p').children('label').prop('for','id_meal_'+n)
-            newEntry.children('p').children('select').prop('name', 'meal_'+n);
-            newEntry.insertAfter('.entry:last');
-
-        newEntry.find('input').val('');
-        controlForm.find('.entry:not(:last) .btn-add')
-            .removeClass('btn-add').addClass('btn-remove')
-            .removeClass('btn-success').addClass('btn-danger')
-            .html('<span class="fa fa-minus"></span>');
-
-
-    }).on('click', '.btn-remove', function(e)
-    {
-		$(this).parents('.entry:first').remove();
-		e.preventDefault();
-
-		return false;
-	});
-});
-</script>
-
+{% block js %}{% endblock js %}
 {% endblock %}
 </body>
 </html>

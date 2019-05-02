@@ -1,6 +1,6 @@
 
 from datetime import datetime, timedelta
-from calendar import HTMLCalendar
+from calendar import HTMLCalendar, _localized_month
 from .models import Meal, Plan
 
 class Calendar(HTMLCalendar):
@@ -24,10 +24,10 @@ class Calendar(HTMLCalendar):
 			for meal in meals:
 				d += '<li> {name} </li>'.format(name=meal.name)
 			if day != 0:
-				return '<td ondblclick="goToPlan({date})"><span class="date">{day}</span><ul> {d} </ul></td>'.format(date=date,day=day,d=d)
+				return '<td class="fc-day fc-widget-content" ondblclick="goToPlan({date})"><span class="date">{day}</span><ul> {d} </ul></td>'.format(date=date,day=day,d=d)
 			return '<td></td>'
 		if day != 0:
-			return '<td ondblclick="goToDate({date})"><span class="date">{day}</span><ul> {d} </ul></td>'.format(date=date,day=day,d=d)
+			return '<td class="fc-day fc-widget-content" ondblclick="goToDate({date})"><span class="date">{day}</span><ul> {d} </ul></td>'.format(date=date,day=day,d=d)
 		return '<td></td>'
 
 	# formats a week as a tr
@@ -35,7 +35,24 @@ class Calendar(HTMLCalendar):
 		week = ''
 		for d, weekday in theweek:
 			week += self.formatday(d)
-		return '<tr> {week} </tr>'.format(week=week)
+		return '<tr class="fc-week"> {week} </tr>'.format(week=week)
+
+	def formatweekheader(self):
+		s = ''.join(self.formatweekday(i) for i in self.iterweekdays())
+		return '<tr class="fc-first fc-last">%s</tr>' % s
+
+	def formatmonthname(self, theyear, themonth, withyear=True):
+		month_name = _localized_month('%B')
+		if withyear:
+			s = '%s %s' % (month_name[themonth], theyear)
+		else:
+			s = '%s' % month_name[themonth]
+
+		prev_month = '<tr class="fc-header"><th colspan="2" class="fc-header-left"><span class="fc-button fc-button-prev fc-state-default fc-corner-left" unselectable="on" onclick="get_prev()"><span class="fc-text-arrow"><</span></span></th>'
+		title = '<th colspan="3" class="fc-header-center"><span class="fc-header-title"><h2>%s</h2></span></th>' % s
+		next_month = '<th colspan="2" class="fc-header-right"><span class="fc-button fc-button-next fc-state-default fc-corner-right" unselectable="on" onclick="get_next()"><span class="fc-text-arrow">></span></span></th></tr>'
+		return prev_month+title+next_month
+
 
 	# formats a month as a table
 	# filter events by year and month

@@ -20,11 +20,23 @@ def meal(request, meal_id=None):
     else:
         instance = Meal()
 
-    form = MealForm(request.POST or None, instance=instance)
-    if request.POST and form.is_valid():
-        form.save()
+    form = MealForm(request.POST or None, instance=instance, meal_id=meal_id)
+    if request.method == 'POST' and form.is_valid():
+        meal = form.save()
+        meal.food.clear()
+        foods = set()
+        for field_name in request.POST:
+            if field_name.startswith('food_'):
+                food = request.POST.get(field_name)
+                if food in foods:
+                    pass
+                else:
+                    foods.add(food)
+                    MealFood.objects.create(meal=meal, food=Food.objects.get(pk=food))
         return HttpResponseRedirect(reverse('calendar'))
-    return render(request, 'meal.html', {'form': form})
+    else:
+        error = form.errors
+    return render(request, 'meal.html', {'form': form, 'meal_id':meal_id})
 
 # def meal(request):
 #

@@ -62,3 +62,40 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block js %}
+<script>
+  $(function()
+{
+
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controls form:first'),
+            currentEntry = $(this).parents('.entry:first');
+            newEntry = currentEntry.clone();
+            name = newEntry.children('p').children('select').attr('name');
+            n = parseInt(name.split('_')[1])+1;
+            newEntry.children('p').children('select').prop('id','id_meal_'+n);
+            newEntry.children('p').children('label').prop('for','id_meal_'+n)
+            newEntry.children('p').children('select').prop('name', 'meal_'+n);
+            newEntry.insertAfter('.entry:last');
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="fa fa-minus"></span>');
+
+
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.entry:first').remove();
+		e.preventDefault();
+
+		return false;
+	});
+});
+</script>
+{% endblock js %}

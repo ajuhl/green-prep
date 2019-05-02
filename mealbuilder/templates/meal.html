@@ -1,26 +1,100 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="htmlContent">
-<p>
+<p> {{message}} </p>
 <h2>Meal</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button class="btn btn-info left" type="submit">Optimize Meal</button>
-    <br/>
-</form>
-</p>
+
+<div class="container">
+	<div class="row">
+        <div class="control-group" id="fields">
+            <label class="control-label" for="field1"></label>
+            <div class="controls">
+                <form role="form" autocomplete="off" method='post'>
+                  {% csrf_token %}
+                  {% for field in form.get_other_fields %}
+                    {% if field is not form.food %}
+                    <p>
+                      {{ field.label_tag }}<br>
+                      {{ field }}
+                      {% if field.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                      {% endif %}
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                    {% endif %}
+                  {% endfor %}
+                  {% for food_field in form.get_foods_fields %}
+                    <div class="entry input-group col-xs-3">
+                      <p>
+                      {{ food_field.label_tag }}
+                      {{ food_field }}
+                      {% if food_field.help_text %}
+                        <small style="color: grey">{{ food_field.help_text }}</small>
+                      {% endif %}
+                      {% for error in food_field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+
+                      {% if forloop.last %}
+                    	<span class="input-group-btn">
+                            <button id='save' class="btn btn-success btn-add" type="button">
+                                <span class="fa fa-plus"></span>
+                            </button>
+                        </span>
+                      {% endif %}
+                      {% if forloop.last is not True %}
+                        <span class="input-group-btn">
+                              <button id='save' class="btn btn-danger btn-remove" type="button">
+                                  <span class="fa fa-minus"></span>
+                              </button>
+                          </span>
+                      {% endif %}
+                    </div>
+                    {% endfor %}
+                    <br/>
+                    <button class="btn btn-info left" type="submit">Save Meal</button>
+                </form>
+            <br>
+            </div>
+        </div>
+	</div>
 </div>
 {% endblock %}
+{% block js %}
+<script>
+  $(function()
+{
+
+    $(document).on('click', '.btn-add', function(e)
+    {
+        e.preventDefault();
+
+        var controlForm = $('.controls form:first'),
+            currentEntry = $(this).parents('.entry:first');
+            newEntry = currentEntry.clone();
+            name = newEntry.children('p').children('select').attr('name');
+            n = parseInt(name.split('_')[1])+1;
+            newEntry.children('p').children('select').prop('id','id_food_'+n);
+            newEntry.children('p').children('label').prop('for','id_food_'+n)
+            newEntry.children('p').children('select').prop('name', 'food_'+n);
+            newEntry.insertAfter('.entry:last');
+
+        newEntry.find('input').val('');
+        controlForm.find('.entry:not(:last) .btn-add')
+            .removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
+            .html('<span class="fa fa-minus"></span>');
+
+
+    }).on('click', '.btn-remove', function(e)
+    {
+		$(this).parents('.entry:first').remove();
+		e.preventDefault();
+
+		return false;
+	});
+});
+</script>
+{% endblock js %}
