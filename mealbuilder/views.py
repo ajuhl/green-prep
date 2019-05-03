@@ -40,7 +40,10 @@ def meal_edit(request, meal_id=None):
                 else:
                     foods.add(food)
                     MealFood.objects.create(meal=meal, food=Food.objects.get(pk=food))
-        return HttpResponseRedirect(reverse('calendar'))
+        context = {
+        'mealfoods' : meal.mealfoods.all(),
+        'meal' : meal}
+        return render(request, 'meal_view.html', context)
     else:
         error = form.errors
     return render(request, 'meal_edit.html', {'form': form, 'meal':instance, 'meal_id':meal_id})
@@ -171,7 +174,12 @@ def plan(request, date=None, id=None):
                 else:
                     meals.add(meal)
                     plan.meal.add(Meal.objects.get(pk=meal))
-        return HttpResponseRedirect(reverse('calendar'))
+        instance = get_object_or_404(Plan, date=date)
+        context = {
+        'meals' : instance.meal.all(),
+        'plan' : instance,
+        'date' : date}
+        return render(request, 'plan_view.html', context)
     else:
         error = form.errors
     return render(request, 'plan.html', {'form': form, 'date':date, 'id':id})
