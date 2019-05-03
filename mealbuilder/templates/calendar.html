@@ -4,7 +4,7 @@
 {{ calendar }}
 <script>
 	function goToPlan(date) {
-		window.location = "plan/edit/("+date+")"
+		window.location = "plan/("+date+")"
 	}
 	function goToDate(date) {
 		window.location = "plan/none/("+date+")"
@@ -15,5 +15,8 @@
 	function get_next(){
 		window.location = "{% url 'calendar' %}?{{ next_month }}"
 	}
+  function get_meal(id){
+	  window.location = "/meal/("+id+")"
+  }
 </script>
 {% endblock %}

@@ -11,20 +11,81 @@
             <div class="controls">
                 <form role="form" autocomplete="off" method='post'>
                   {% csrf_token %}
-                  {% for field in form.get_other_fields %}
-                    {% if field is not form.food %}
-                    <p>
-                      {{ field.label_tag }}<br>
-                      {{ field }}
-                      {% if field.help_text %}
+                  <table style="table-layout:fixed;">
+                    <tr>
+                      <td>
+                        <p> {{ form.name.label_tag }}</p>
+                      </td>
+                      <td>
+                        {{ form.name }}
+                      </td>
+                      </p>
+                      {% if form.name.help_text %}
                         <small style="color: grey">{{ field.help_text }}</small>
                       {% endif %}
-                      {% for error in field.errors %}
+                      {% for error in form.name.errors %}
                         <p style="color: red">{{ error }}</p>
                       {% endfor %}
                     </p>
-                    {% endif %}
-                  {% endfor %}
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>{{ form.protein_goal.label_tag }}</p>
+                    </td>
+                    <td>
+                      {{ form.protein_goal }}
+                    </td>
+                    <td>
+                      <p>Protein Actual: {{meal.protein}}</p>
+                    </td>
+                    <p>
+                      {% if form.protein_goal.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                      {% endif %}
+                      {% for error in form.protein_goal.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>{{ form.carb_goal.label_tag }}</p>
+                    </td>
+                    <td>
+                      {{ form.carb_goal }}
+                    </td>
+                    <td>
+                      <p>Carb Actual: {{meal.carbs}}</p>
+                    </td>
+                    <p>
+                      {% if form.carb_goal.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                      {% endif %}
+                      {% for error in form.carb_goal.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>{{ form.fat_goal.label_tag }}</p>
+                    </td>
+                    <td>
+                      {{ form.fat_goal }}
+                    </td>
+                    <td>
+                      <p>Fat Actual: {{meal.total_fat}}</p>
+                    </td>
+                    <p>
+                      {% if form.fat_goal.help_text %}
+                        <small style="color: grey">{{ field.help_text }}</small>
+                      {% endif %}
+                      {% for error in form.fat_goal.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                  </tr>
+                </table>
                   {% for food_field in form.get_foods_fields %}
                     <div class="entry input-group col-xs-3">
                       <p>
