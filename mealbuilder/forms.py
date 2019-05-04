@@ -6,7 +6,22 @@ from django.forms import ModelForm, DateInput
 class MealForm(ModelForm):
     class Meta:
         model = Meal
-        exclude = ('create_date','food','profile',)
+        exclude = (
+        'create_date',
+        'food',
+        'profile',
+        'calories',
+        'protein',
+        'carbs',
+        'total_fat',
+        'fiber',
+        'sodium',
+        'potassium',
+        'sugars',
+        'magnesium',
+        'cholesterol',
+        'sat_fat',
+        'trans_fat')
 
     def __init__(self, *args, **kwargs):
         id = kwargs.pop('meal_id', None)
@@ -71,7 +86,23 @@ class PlanNoneForm(ModelForm):
 class PlanForm(ModelForm):
     class Meta:
         model = Plan
-        exclude=('field_count','profile','create_date','date','meal')
+        exclude=(
+                'create_date',
+                'date',
+                'meal',
+                'profile',
+                'calories',
+                'protein',
+                'carbs',
+                'total_fat',
+                'fiber',
+                'sodium',
+                'potassium',
+                'sugars',
+                'magnesium',
+                'cholesterol',
+                'sat_fat',
+                'trans_fat')
 
     def __init__(self, *args, **kwargs):
         id = kwargs.pop('id', None)

@@ -353,7 +353,7 @@ html .fc,
 }
 
 .fc-state-highlight > div > div.fc-day-number{
-    background-color: #ff3b30;
+    background-color: #6be5b0;
     color: #FFFFFF;
     border-radius: 50%;
     margin: 4px;
@@ -383,6 +383,10 @@ html .fc,
 
 .fc-state-default { /* non-theme */
 	border: 1px solid;
+	}
+
+.fc-state-default:hover { /* non-theme */
+	background-color: #DBFAED
 	}
 
 .fc-state-default.fc-corner-left { /* non-theme */
@@ -430,8 +434,8 @@ html .fc,
 
 
 .fc-state-default {
-	border-color: #ff3b30;
-	color: #ff3b30;
+	border-color: #6be5b0;
+	color: #6be5b0;
 }
 .fc-button-month.fc-state-default, .fc-button-agendaWeek.fc-state-default, .fc-button-agendaDay.fc-state-default{
     min-width: 67px;
@@ -448,7 +452,7 @@ html .fc,
 	}
 
 .fc-state-hover {
-	color: #ff3b30;
+	color: #6be5b0;
 	text-decoration: none;
 	background-position: 0 -15px;
 	-webkit-transition: background-position 0.1s linear;
@@ -459,7 +463,7 @@ html .fc,
 
 .fc-state-down,
 .fc-state-active {
-	background-color: #ff3b30;
+	background-color: #6be5b0;
 	background-image: none;
 	outline: 0;
 	color: #FFFFFF;
@@ -472,7 +476,7 @@ html .fc,
 	filter: alpha(opacity=65);
 	box-shadow: none;
 	border:1px solid #FFE3E3;
-	color: #ff3b30;
+	color: #6be5b0;
 	}
 
 
@@ -866,7 +870,8 @@ table.fc-header{
     transition: background-color 0.2s;
 }
 .fc-week .fc-day.fc-state-highlight:hover .fc-day-number{
-    background-color:  #ff3b30;
+    background-color:  #6be5b0;
+    color: #717979;
 }
 .fc-button-today{
     border: 1px solid rgba(255,255,255,.0);
@@ -875,6 +880,8 @@ table.fc-header{
     text-align: right;
     padding-right: 10px;
 }
+
+
 
 /*!
  * FullCalendar v1.6.4 Print Stylesheet
@@ -906,3 +913,125 @@ table.fc-header{
 .fc-event .ui-resizable-handle {
 	display: none !important;
 	}
+
+  @import "compass/css3";
+  .image {
+    width: 250px;
+    float: left;
+    margin: 20px;
+  }
+  body {
+    font-size: small;
+    line-height: 1.4;
+  }
+  p {
+    margin: 0;
+  }
+  .performance-facts {
+    border: 1px solid black;
+    margin: 20px;
+    float: left;
+    width: 280px;
+    padding: 0.5rem;
+  }
+  .performance-facts table {
+    border-collapse: collapse;
+  }
+  .performance-facts__title {
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0 0 0.25rem 0;
+  }
+  .performance-facts__header {
+    border-bottom: 10px solid black;
+    padding: 0 0 0.25rem 0;
+    margin: 0 0 0.5rem 0;
+  }
+  .performance-facts__header p {
+    margin: 0;
+  }
+  .performance-facts__table, .performance-facts__table--small, .performance-facts__table--grid {
+    width: 100%;
+  }
+  .performance-facts__table thead tr th, .performance-facts__table--small thead tr th, .performance-facts__table--grid thead tr th, .performance-facts__table thead tr td, .performance-facts__table--small thead tr td, .performance-facts__table--grid thead tr td {
+    border: 0;
+  }
+  .performance-facts__table th, .performance-facts__table--small th, .performance-facts__table--grid th, .performance-facts__table td, .performance-facts__table--small td, .performance-facts__table--grid td {
+    font-weight: normal;
+    text-align: left;
+    padding: 0.25rem 0;
+    border-top: 1px solid black;
+    white-space: nowrap;
+  }
+  .performance-facts__table td:last-child, .performance-facts__table--small td:last-child, .performance-facts__table--grid td:last-child {
+    text-align: right;
+  }
+  .performance-facts__table .blank-cell, .performance-facts__table--small .blank-cell, .performance-facts__table--grid .blank-cell {
+    width: 1rem;
+    border-top: 0;
+  }
+  .performance-facts__table .thick-row th, .performance-facts__table--small .thick-row th, .performance-facts__table--grid .thick-row th, .performance-facts__table .thick-row td, .performance-facts__table--small .thick-row td, .performance-facts__table--grid .thick-row td {
+    border-top-width: 5px;
+  }
+  .small-info {
+    font-size: 0.7rem;
+  }
+  .performance-facts__table--small {
+    border-bottom: 1px solid #999;
+    margin: 0 0 0.5rem 0;
+  }
+  .performance-facts__table--small thead tr {
+    border-bottom: 1px solid black;
+  }
+  .performance-facts__table--small td:last-child {
+    text-align: left;
+  }
+  .performance-facts__table--small th, .performance-facts__table--small td {
+    border: 0;
+    padding: 0;
+  }
+  .performance-facts__table--grid {
+    margin: 0 0 0.5rem 0;
+  }
+  .performance-facts__table--grid td:last-child {
+    text-align: left;
+  }
+  .performance-facts__table--grid td:last-child::before {
+    content: "•";
+    font-weight: bold;
+    margin: 0 0.25rem 0 0;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .thick-end {
+    border-bottom: 10px solid black;
+  }
+  .thin-end {
+    border-bottom: 1px solid black;
+  }
+
+  .meal_view td {
+    vertical-align: top;
+  }
+
+  .plan_view td {
+    vertical-align: top;
+  }
+
+  table.plan_none {
+    margin-top: 10%;
+    width: 50%;
+  }
+
+  .plan_none tr {
+    height: 50px;
+  }
+
+  .plan_none td {
+    margin: auto;
+  }
+
+  .plan_none span.fc-button {
+    width: 50%;
+  }

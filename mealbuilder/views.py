@@ -14,9 +14,16 @@ from .simplex import OptimizeMeal
 from .utils import Calendar
 
 def meal(request, meal_id=None):
+    instance = get_object_or_404(Meal, pk=meal_id)
+    context = {
+    'mealfoods' : instance.mealfoods.all(),
+    'meal' : instance}
+    return render(request, 'meal_view.html', context)
+
+def meal_edit(request, meal_id=None):
     instance = Meal()
     if meal_id:
-        instance = get_object_or_404(Meal, pk_meal_id)
+        instance = get_object_or_404(Meal, pk=meal_id)
     else:
         instance = Meal()
 
@@ -33,10 +40,14 @@ def meal(request, meal_id=None):
                 else:
                     foods.add(food)
                     MealFood.objects.create(meal=meal, food=Food.objects.get(pk=food))
-        return HttpResponseRedirect(reverse('calendar'))
+        optimized_meal=OptimizeMeal(meal)
+        context = {
+        'mealfoods' : meal.mealfoods.all(),
+        'meal' : optimized_meal}
+        return render(request, 'meal_view.html', context)
     else:
         error = form.errors
-    return render(request, 'meal.html', {'form': form, 'meal_id':meal_id})
+    return render(request, 'meal_edit.html', {'form': form, 'meal':instance, 'meal_id':meal_id})
 
 # def meal(request):
 #
@@ -127,6 +138,14 @@ def next_month(d):
     return month
 
 
+def plan_view(request, date=None):
+    instance = get_object_or_404(Plan, date=date)
+    context = {
+    'meals' : instance.meal.all(),
+    'plan' : instance,
+    'date' : date}
+    return render(request, 'plan_view.html', context)
+
 def plan(request, date=None, id=None):
     instance = Plan()
     if date:
@@ -156,14 +175,16 @@ def plan(request, date=None, id=None):
                 else:
                     meals.add(meal)
                     plan.meal.add(Meal.objects.get(pk=meal))
-        return HttpResponseRedirect(reverse('calendar'))
+        instance = get_object_or_404(Plan, date=date)
+        instance.updateNutrients()
+        context = {
+        'meals' : instance.meal.all(),
+        'plan' : instance,
+        'date' : date}
+        return render(request, 'plan_view.html', context)
     else:
         error = form.errors
     return render(request, 'plan.html', {'form': form, 'date':date, 'id':id})
 
-def plan_none(request, date=None, id=None):
-    instance = Plan()
-    form = PlanNoneForm(request.POST or None)
-    if request.POST and form.is_valid():
-        id = request.POST.get('plan', default=None)
-    return render(request, 'plan_none.html', {'form': form, 'date': date, 'id':id})
+def plan_none(request, date=None):
+    return render(request, 'plan_none.html', {'plans':Plan.objects.all(), 'date': date})

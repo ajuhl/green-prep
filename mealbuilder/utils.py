@@ -1,5 +1,5 @@
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from calendar import HTMLCalendar, _localized_month
 from .models import Meal, Plan
 
@@ -12,7 +12,11 @@ class Calendar(HTMLCalendar):
 	# formats a day as a td
 	# filter events by day
 	def formatday(self, day):
+		_day = int(datetime.today().strftime('%d'))
+		_month = int(datetime.today().strftime('%m'))
+		_year = int(datetime.today().strftime('%Y'))
 		d = ''
+		html = '<td class="'
 		date = "'{year}-{month}-{day}'".format(year=self.year,month=self.month,day=day)
 		try:
 			plan = Plan.objects.get(date__year=self.year, date__month=self.month, date__day=day)
@@ -22,14 +26,18 @@ class Calendar(HTMLCalendar):
 			meals = plan.meal.all()
 
 			for meal in meals:
-				d += '<div class="fc-event fc-event-hori fc-event-draggable fc-event-start fc-event-end"><div class="fc-event-inner"><span class="fc-event-title">{name}</span></div></div>'.format(name=meal.name)
+				d += '<div class="fc-event fc-event-hori fc-event-start fc-event-end" onclick="get_meal({id})"><div class="fc-event-inner"><span class="fc-event-title">{name}</span></div></div>'.format(name=meal.name, id=meal.id)
 			if day != 0:
-				return '<td class="fc-day fc-widget-content" ondblclick="goToPlan({date})"><div style="min-height: 106px;"><div class="fc-day-number">{day}</div><div class="fc-day-content"><div style="position: relative; height: 84px;">{d}</div></div</td>'.format(date=date,day=day,d=d)
-			return '<td class="fc-day fc-widget-content"></td>'
+				if _day==day and _month==self.month and _year==self.year:
+					html += 'fc-state-highlight '
+				return html+'fc-day fc-widget-content" ondblclick="goToPlan({date})"><div style="min-height: 106px;"><div class="fc-day-number">{day}</div><div class="fc-day-content"><div style="position: relative; height: 84px;">{d}</div></div</td>'.format(date=date,day=day,d=d)
+			return html+'fc-day fc-widget-content"></td>'
 
 		if day != 0:
-			return '<td class="fc-day fc-widget-content" ondblclick="goToDate({date})"><div style="min-height: 106px;"><div class="fc-day-number">{day}</div><div class="fc-day-content"><div style="position: relative; height: 84px;">{d}</div></div</td>'.format(date=date,day=day,d=d)
-		return '<td class="fc-day fc-widget-content"></td>'
+			if _day==day and _month==self.month and _year==self.year:
+				html += 'fc-state-highlight '
+			return html+'fc-day fc-widget-content" ondblclick="goToDate({date})"><div style="min-height: 106px;"><div class="fc-day-number">{day}</div><div class="fc-day-content"><div style="position: relative; height: 84px;">{d}</div></div</td>'.format(date=date,day=day,d=d)
+		return html+'fc-day fc-widget-content"></td>'
 
 	# formats a week as a tr
 	def formatweek(self, theweek):
