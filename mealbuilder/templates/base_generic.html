@@ -25,37 +25,20 @@
             </div>
             <ul class="list-unstyled components">
                 Hello, <a href="{% url 'profile' %}"> {{user.get_username}}</a><br/>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
+                <li>
+                  <a href="{% url 'calendar' %}"><i class="fas fa-calendar-alt"></i> Calendar</a><br/>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                  <a href="{% url 'plan_new' %}"><i class="far fa-clipboard"></i> Plan</a><br/>
                 </li>
                 <li>
-                  <a href="{% url 'calendar' %}">Calendar</a><br/>
+                  <a href="{% url 'meal_new' %}"><i class="fas fa-utensils"></i> Meal</a><br/>
                 </li>
                 <li>
-                  <a href="{% url 'plan_new' %}">Plan</a><br/>
+                    <a href="{% url 'grocerylist' %}"><i class="fas fa-list-ul"></i> Grocery List</a><br/>
                 </li>
                 <li>
-                  <a href="{% url 'meal_new' %}">Meal</a><br/>
-                </li>
-                <li>
-                    <a href="{% url 'grocerylist' %}">Grocery List</a><br/>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a href="#"><i class="fas fa-info-circle"></i> Info</a>
                 </li>
             </ul>
         </nav>

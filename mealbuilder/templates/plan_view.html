@@ -21,7 +21,19 @@
           <h4 class="card-title">
             <a href="#">{{ meal.name }}</a>
           </h4>
-          <p class="card-text">Protein:{{meal.protein}} Carb:{{meal.carbs}} Fat:{{meal.total_fat}}</p>
+          <table>
+            <tr>
+              <td>
+                <p class="card-text">Protein:{{meal.protein}}g </p>
+              </td>
+              <td>
+                 <p class="card-text">Carb:{{meal.carbs}}g </p>
+              </td>
+              <td>
+                <p class="card-text">Fat:{{meal.total_fat}}g </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>

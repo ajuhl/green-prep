@@ -1015,6 +1015,10 @@ table.fc-header{
     vertical-align: top;
   }
 
+  .plan_view td {
+    vertical-align: top;
+  }
+
   table.plan_none {
     margin-top: 10%;
     width: 50%;

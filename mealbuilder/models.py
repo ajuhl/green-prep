@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 from uuid import uuid4
 import datetime
+import math
 
 from userprofile.models import Profile
 
@@ -51,17 +52,17 @@ class Meal(models.Model):
     food = models.ManyToManyField(Food, through='MealFood', related_name='meals')
 
     calories = models.PositiveSmallIntegerField(null=True)
-    protein = models.FloatField(default = -1)
-    carbs = models.FloatField(default = -1)
-    total_fat = models.FloatField(default = -1)
-    fiber = models.FloatField(default = -1)
-    sodium = models.FloatField(default = -1)
-    potassium = models.FloatField(default = -1)
-    sugars = models.FloatField(default = -1)
-    magnesium = models.FloatField(default = -1)
-    cholesterol = models.FloatField(default = -1)
-    sat_fat = models.FloatField(default = -1)
-    trans_fat = models.FloatField(default = -1)
+    protein = models.FloatField(default = 0)
+    carbs = models.FloatField(default = 0)
+    total_fat = models.FloatField(default = 0)
+    fiber = models.FloatField(default = 0)
+    sodium = models.FloatField(default = 0)
+    potassium = models.FloatField(default = 0)
+    sugars = models.FloatField(default = 0)
+    magnesium = models.FloatField(default = 0)
+    cholesterol = models.FloatField(default = 0)
+    sat_fat = models.FloatField(default = 0)
+    trans_fat = models.FloatField(default = 0)
     #calculation goal for the meal for fats, protein, and carbs
     #cals, fats, protein, carbs allocated FOR THE MEAL
     #potentially add info for 'bounds' as in 'no more than 20oz chicken please'
@@ -83,22 +84,31 @@ class Meal(models.Model):
     def updateNutrients(self):
         self.protein = 0
         self.carbs = 0
-        self.fat = 0
+        self.total_fat = 0
         self.calories = 0
+        self.fiber = 0
+        self.sodium =0
+        self.potassium = 0
+        self.sugars = 0
+        self.magnesium =0
+        self.cholesterol = 0
+        self.sat_fat = 0
+        self.trans_fat =0
 
         for mealfood in self.mealfoods.all():
+            quantity = mealfood.quantity
             self.protein = self.protein + mealfood.protein
             self.carbs = self.carbs + mealfood.carbs
-            self.fat = self.fat + mealfood.fat
-            self.calories = self.calories + mealfood.calories
-            self.fiber = self.fiber + mealfood.fiber
-            self.sodium = self.sodium + mealfood.sodium
-            self.potassium = self.potassium + mealfood.potassium
-            self.sugars = self.sugars + mealfood.sugars
-            self.magnesium = self.magnesium + mealfood.magnesium
-            self.cholesterol = self.cholesterol + mealfood.cholesterol
-            self.sat_fat = self.sat_fat + mealfood.sat_fat
-            self.trans_fat = self.trans_fat + mealfood.trans_fat
+            self.total_fat = self.total_fat + mealfood.fat
+            self.calories = round(self.calories +  (mealfood.food.calories * quantity))
+            self.fiber = round(self.fiber +  (mealfood.food.fiber * quantity))
+            self.sodium = round(self.sodium +  (mealfood.food.sodium * quantity))
+            self.potassium = round(self.potassium +  (mealfood.food.potassium * quantity))
+            self.sugars = round(self.sugars +  (mealfood.food.sugars * quantity))
+            self.magnesium =round( self.magnesium +  (mealfood.food.magnesium * quantity))
+            self.cholesterol = round(self.cholesterol +  (mealfood.food.cholesterol * quantity))
+            self.sat_fat = round(self.sat_fat +  (mealfood.food.sat_fat * quantity))
+            self.trans_fat = round(self.trans_fat +  (mealfood.food.trans_fat * quantity))
             self.save()
 
     class Meta:
@@ -126,10 +136,10 @@ class MealFood(models.Model):
         return str(self.food.name + " - " + self.meal.name + " - " + self.meal.profile.user.username)
 
     def updateNutrients(self):
-        self.protein = self.food.protein * self.quantity
-        self.carbs = self.food.carbs * self.quantity
-        self.fat = self.food.total_fat * self.quantity
-        self.calories = ceil(self.food.calories * self.quantity)
+        self.protein = round(self.food.protein * self.quantity)
+        self.carbs = round(self.food.carbs * self.quantity)
+        self.fat = round(self.food.total_fat * self.quantity)
+        self.calories = round(self.food.calories * self.quantity)
         self.save()
 
 #---------------------------------------------
@@ -143,9 +153,19 @@ class Plan(models.Model):
     protein_goal = models.PositiveSmallIntegerField()
     carb_goal = models.PositiveSmallIntegerField()
     fat_goal = models.PositiveSmallIntegerField()
-    protein_actual = models.FloatField(null=True)
-    carb_actual = models.FloatField(null=True)
-    fat_actual = models.FloatField(null=True)
+
+    calories = models.PositiveSmallIntegerField(null=True)
+    protein = models.FloatField(default = 0)
+    carbs = models.FloatField(default = 0)
+    total_fat = models.FloatField(default = 0)
+    fiber = models.FloatField(default = 0)
+    sodium = models.FloatField(default = 0)
+    potassium = models.FloatField(default = 0)
+    sugars = models.FloatField(default = 0)
+    magnesium = models.FloatField(default = 0)
+    cholesterol = models.FloatField(default = 0)
+    sat_fat = models.FloatField(default = 0)
+    trans_fat = models.FloatField(default = 0)
 
     meal = models.ManyToManyField(Meal, related_name='plans', null=True)
 
@@ -156,3 +176,32 @@ class Plan(models.Model):
 
     def __str__(self):
         return self.name
+
+    def updateNutrients(self):
+        self.protein = 0
+        self.carbs = 0
+        self.total_fat = 0
+        self.calories = 0
+        self.fiber = 0
+        self.sodium =0
+        self.potassium = 0
+        self.sugars = 0
+        self.magnesium =0
+        self.cholesterol = 0
+        self.sat_fat = 0
+        self.trans_fat =0
+
+        for meal in self.meal.all():
+            self.protein = round(self.protein + meal.protein)
+            self.carbs = round(self.carbs + meal.carbs)
+            self.total_fat = round(self.total_fat + meal.total_fat)
+            self.calories = round(self.calories +  meal.calories)
+            self.fiber = round(self.fiber +  meal.fiber)
+            self.sodium = round(self.sodium +  meal.sodium)
+            self.potassium = round(self.potassium + meal.potassium)
+            self.sugars = round(self.sugars +  meal.sugars)
+            self.magnesium =round( self.magnesium + meal.magnesium)
+            self.cholesterol = round(self.cholesterol + meal.cholesterol)
+            self.sat_fat = round(self.sat_fat + meal.sat_fat)
+            self.trans_fat = round(self.trans_fat + meal.trans_fat)
+            self.save()

@@ -86,7 +86,23 @@ class PlanNoneForm(ModelForm):
 class PlanForm(ModelForm):
     class Meta:
         model = Plan
-        exclude=('field_count','profile','create_date','date','meal', 'protein_actual','carb_actual','fat_actual',)
+        exclude=(
+                'create_date',
+                'date',
+                'meal',
+                'profile',
+                'calories',
+                'protein',
+                'carbs',
+                'total_fat',
+                'fiber',
+                'sodium',
+                'potassium',
+                'sugars',
+                'magnesium',
+                'cholesterol',
+                'sat_fat',
+                'trans_fat')
 
     def __init__(self, *args, **kwargs):
         id = kwargs.pop('id', None)

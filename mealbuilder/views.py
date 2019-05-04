@@ -40,9 +40,10 @@ def meal_edit(request, meal_id=None):
                 else:
                     foods.add(food)
                     MealFood.objects.create(meal=meal, food=Food.objects.get(pk=food))
+        optimized_meal=OptimizeMeal(meal)
         context = {
         'mealfoods' : meal.mealfoods.all(),
-        'meal' : meal}
+        'meal' : optimized_meal}
         return render(request, 'meal_view.html', context)
     else:
         error = form.errors
@@ -175,6 +176,7 @@ def plan(request, date=None, id=None):
                     meals.add(meal)
                     plan.meal.add(Meal.objects.get(pk=meal))
         instance = get_object_or_404(Plan, date=date)
+        instance.updateNutrients()
         context = {
         'meals' : instance.meal.all(),
         'plan' : instance,

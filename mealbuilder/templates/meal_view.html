@@ -10,8 +10,19 @@
 <div class="container">
 
   <!-- Page Heading -->
-  <h1 class="my-4">{{meal.name}}
-  </h1>
+  <h1 class="my-4">{{meal.name}}</h1>
+  <table>
+    <tr>
+      <td>Protein Goal: {{meal.protein_goal}}g</td><td>Protein Actual: {{meal.protein}}g</td>
+    </tr>
+    <tr>
+      <td>Carb Goal: {{meal.carb_goal}}g</td><td>Carb Actual: {{meal.carbs}}g</td>
+    </tr>
+    <tr>
+      <td>Fat Goal: {{meal.fat_goal}}g</td><td>Fat Actual: {{meal.total_fat}}g</td>
+    </tr>
+  </table>
+
 
   <div class="row">
   {% for mealfood in mealfoods %}
@@ -21,7 +32,24 @@
           <h4 class="card-title">
             <a href="#">{{ mealfood.food.name }}</a>
           </h4>
-          <p class="card-text">Protein:{{mealfood.protein}} Carb:{{mealfood.carbs}} Fat:{{mealfood.fat}}</p>
+          <table>
+            <tr>
+              <td>
+                <p class="card-text">Quantity: {{mealfood.quantity}}g</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p class="card-text">Protein:{{mealfood.protein}}g </p>
+              </td>
+              <td>
+                 <p class="card-text">Carb:{{mealfood.carbs}}g </p>
+              </td>
+              <td>
+                <p class="card-text">Fat:{{mealfood.fat}}g </p>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
