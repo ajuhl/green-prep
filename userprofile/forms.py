@@ -11,4 +11,8 @@ class UserForm(forms.ModelForm):
             'height', 
             'weight', 
             'activity_level', 
-            'physical_goal')
+            'physical_goal',
+            'protein_goal',
+            'carb_goal',
+            'fat_goal',
+            )
