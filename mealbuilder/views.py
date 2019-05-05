@@ -20,17 +20,17 @@ def meal(request, meal_id=None):
     'meal' : instance}
     return render(request, 'meal_view.html', context)
 
-def meal_edit(request, meal_id=None):
+def meal_edit(request, meal_id=None, profile_id=2):
     instance = Meal()
     if meal_id:
-        instance = get_object_or_404(Meal, pk=meal_id)
+        instance = get_object_or_404(Meal, pk=meal_id,profile_id=profile_id)
     else:
-        instance = Meal()
+        instance = Meal(profile_id=profile_id)
 
     form = MealForm(request.POST or None, instance=instance, meal_id=meal_id)
     if request.method == 'POST' and form.is_valid():
         meal = form.save()
-        meal.food.clear()
+        meal.mealfoods.clear()
         foods = set()
         for field_name in request.POST:
             if field_name.startswith('food_'):
@@ -40,10 +40,24 @@ def meal_edit(request, meal_id=None):
                 else:
                     foods.add(food)
                     MealFood.objects.create(meal=meal, food=Food.objects.get(pk=food))
-        optimized_meal=OptimizeMeal(meal)
+        servingSizes=OptimizeMeal(meal)
+        i=0
+        for mealfood in meal.mealfoods.all():
+            mealfood.quantity = round(servingSizes[i,0]*100)
+            mealfood.updateNutrients()
+            mealfood.save()
+            i += 1
+
+        meal.updateNutrients()
+        meal.save()
+
+        for plan in meal.plans.all():
+            plan.updateNutrients()
+            plan.save()
+
         context = {
         'mealfoods' : meal.mealfoods.all(),
-        'meal' : optimized_meal}
+        'meal' : meal}
         return render(request, 'meal_view.html', context)
     else:
         error = form.errors
@@ -188,3 +202,24 @@ def plan(request, date=None, id=None):
 
 def plan_none(request, date=None):
     return render(request, 'plan_none.html', {'plans':Plan.objects.all(), 'date': date})
+
+
+def grocery_list(request, start_date=None, end_date=None):
+    foods = set()
+    gList={}
+    plans = Plan.objects.all()
+    for plan in plans:
+        for meal in plan.meal.all():
+            for mealfood in meal.mealfoods.all():
+                name = mealfood.food.name
+                if mealfood.food in foods:
+                    gList[name] += mealfood.quantity
+                else:
+                    foods.add(mealfood.food)
+                    gList[name] = mealfood.quantity
+
+    context = {
+    'gList' : gList,
+    'start_date' : start_date,
+    'end_date' : end_date}
+    return render(request, 'grocery_list.html', context)

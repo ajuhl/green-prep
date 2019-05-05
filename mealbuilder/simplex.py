@@ -107,17 +107,6 @@ def OptimizeMeal(meal):
 
     lConstraints = vertcat(foodComposition,np.eye(numberOfFoods)*100)
     rConstraints = vertcat(goalMacros,upperBounds)
-    servingSizes=simplexMacro(foodComposition,lConstraints,rConstraints)
-    for i in range(numberOfFoods):
-        item = mealFoods[i]
-        item.quantity = round(servingSizes[i,0])
-        item.updateNutrients()
-        item.save()
-
-    meal.updateNutrients()
-    meal.save()
-
-    for plan in meal.plans.all():
-        plan.updateNutrients()
-        plan.save()
-    return meal
+    solution=simplexMacro(foodComposition,lConstraints,rConstraints)
+    print(solution)
+    return solution

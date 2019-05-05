@@ -14,4 +14,6 @@ urlpatterns = [
     path('plan/edit/', mealbuilder_views.plan, name='plan_edit'),
     path('plan/edit/(<date>)/(<id>)', mealbuilder_views.plan, name='plan_edit'),
     path('plan/none/(<date>)', mealbuilder_views.plan_none, name='plan_none'),
+    path('grocerylist/', mealbuilder_views.grocery_list, name='grocery_list'),
+    path('grocerylist/(<start_date>)/(<end_date>)', mealbuilder_views.grocery_list, name='grocery_list'),
 ]

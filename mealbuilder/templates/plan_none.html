@@ -3,7 +3,7 @@
 {% block content %}
 
     <table class="plan_none">
-			<tr><td colspan="2"><span class="fc-button fc-button-prev fc-state-default fc-corner-left" href="{% url 'plan_edit' %}({{date}})"> Create Plan </span></td></tr>
+			<tr><td colspan="2"><span class="fc-button fc-button-prev fc-state-default fc-corner-left" onclick="newPlan()"> Create Plan </span></td></tr>
 			<br>
 			<tr><td colspan="2"><p>or</p></td></tr>
 			<br>
@@ -24,7 +24,10 @@
         value=document.getElementById("id_plan").value
         if (value != ""){
     	  window.location = "/meal/plan/edit/({{date}})/("+value+")"
+        }
       }
+      function newPlan(){
+        window.location = "{% url 'plan_edit' %}({{date}})"
       }
     </script>
 
