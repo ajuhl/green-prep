@@ -18,3 +18,6 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+def info(request):
+    return render(request, 'info.html')

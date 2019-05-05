@@ -12,6 +12,7 @@ urlpatterns = [
     path('grocerylist/', include('grocerylist.urls')),
     path('profile/', include('userprofile.urls')),
     path('signup/', views.signup, name='signup'),
+    path('info/', views.info, name='info'),
     path('', views.index, name='index'),
 ]
 
