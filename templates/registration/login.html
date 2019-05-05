@@ -2,6 +2,8 @@
 <p><br><br><br><br></p>
 
 {% block content %}
+<div class="gp_container">
+
 <!--https://dribbble.com/shots/4320349-You-Go-Girl-->
 
 {% if form.errors %}
@@ -38,5 +40,5 @@
 
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+</div>
 {% endblock %}

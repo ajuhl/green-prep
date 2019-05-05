@@ -1,6 +1,9 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
+
+<div class="gp_container">
+
 <p>
     <form method = "POST">
       {% csrf_token %}
@@ -43,4 +46,6 @@
       <button type = "submit">Submit</button>
     </form>
 </p>
+
+</div>
 {% endblock %}

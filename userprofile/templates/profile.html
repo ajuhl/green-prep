@@ -1,6 +1,9 @@
 {% extends "base_generic.html" %}
 {% load static %}
 {% block content %}
+
+<div class="gp_container">
+
 <p>
     <h1>{{request.user.first_name }} {{user.last_name }}<br/></h1>
 
@@ -19,4 +22,6 @@
 
     <p><a href="{% url 'profile_edit' %}">Edit Profile</a><br/></p>
 </p>
+
+</div>
 {% endblock %}

@@ -21,29 +21,44 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>GreenPrep</h3>
+                GreenPrep
             </div>
-            <ul class="list-unstyled components">
+            {% if user.is_authenticated %}
+
+            <p class="hello">
                 Hello, <a href="{% url 'profile' %}"> {{user.get_username}}</a><br/>
+            </p>
+
+            {% endif %}
+            <ul class="list-unstyled components">
+
                 <li>
-                  <a href="{% url 'calendar' %}"><i class="fas fa-calendar-alt"></i> Calendar</a><br/>
+                  <a href="{% url 'calendar' %}"><i class="fas fa-calendar-alt"></i>  Calendar</a>
                 </li>
                 <li>
-                  <a href="{% url 'plan_new' %}"><i class="far fa-clipboard"></i> Plan</a><br/>
+                  <a href="{% url 'plan_new' %}"><i class="far fa-clipboard"></i>  Plan</a>
                 </li>
                 <li>
-                  <a href="{% url 'meal_new' %}"><i class="fas fa-utensils"></i> Meal</a><br/>
+                  <a href="{% url 'meal_new' %}"><i class="fas fa-utensils"></i>  Meal</a>
                 </li>
                 <li>
-                    <a href="{% url 'grocerylist' %}"><i class="fas fa-list-ul"></i> Grocery List</a><br/>
+                    <a href="{% url 'grocerylist' %}"><i class="fas fa-list-ul"></i>  Grocery List</a>
                 </li>
                 <li>
                     <a href="#"><i class="fas fa-info-circle"></i> Info</a>
+
                 </li>
+
+                {% if user.is_authenticated %}
+                <li>
+                        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Log Out</a><br/>
+    
+                </li>
+                {% endif %}
             </ul>
         </nav>
         <!-- Page Content -->
-
+<!-- 
         <div id="content">
                 <nav>
                     <div class="container-fluid">
@@ -58,7 +73,7 @@
                     </div>
                 </nav>
 
-            </div>
+            </div> -->
 
         {% block content %}
         {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
+<div class="gp_container">
 
     <table class="plan_none">
 			<tr><td colspan="2"><span class="fc-button fc-button-prev fc-state-default fc-corner-left" href="{% url 'plan_edit' %}({{date}})"> Create Plan </span></td></tr>
@@ -28,5 +29,6 @@
       }
     </script>
 
+</div>
 
 {% endblock %}
