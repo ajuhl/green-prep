@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<p> {{message}} </p>
+<table class="grocery_list">
+<!-- Page Content -->
+<tr><td><span class="fc-button fc-button-prev fc-state-default fc-corner-left" onclick="editMeal({{meal.id}})"> Edit Meal </span></td></tr>
+<tr>
+<td>
+<div class="gp_container">
+
+  <!-- Page Heading -->
+  <h1 class="my-4">{{start_date}} through {{end_date}}</h1>
+
+  <div class="row">
+  {% for food, quantity in gList.items %}
+    <div class="col-lg-6 mb-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="#">{{food}}</a>
+          </h4>
+          <table>
+            <tr>
+              <td>
+                <p class="card-text">Quantity: {{quantity}}g</p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- /.row -->
+
+</tr>
+</table>
+{% endblock %}
+

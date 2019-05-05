@@ -8,7 +8,12 @@
     max-width: 250px;
     background: #6BE5B0;
     color: #fff;
-    transition: all 0.3s;
+		transition: all 0.3s;
+		margin-right: 2em;
+		height: 100%;
+		position: fixed;
+		width: 15%;
+
 }
 
 #sidebar.active {
@@ -33,6 +38,26 @@
   }
 }
 
+.gp_container {
+	margin: auto;
+	padding-left: 3em;
+	width: 80%;
+	position:fixed;
+	left: 250px;
+	padding-right: 5em;
+
+}
+
+.hello {
+	font-size: 1.7em;
+	font-weight: 450;
+  /* justify-content: center; */
+  /* width: auto;
+	display: flex; */
+	color: #FFFFFF;
+
+}
+}
 
 body {
     font-family:  'Roboto', sans-serif;
@@ -55,7 +80,11 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6BE5B0;
+		background: #6BE5B0;
+		font-family: Ubuntu;
+		font-size: 3.2em;
+		font-weight: bold;
+
 }
 
 #sidebar ul.components {
@@ -70,7 +99,7 @@ a, a:hover, a:focus {
 
 #sidebar ul li a {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 1.7em;
     display: block;
 }
 
@@ -132,7 +161,7 @@ ul {
 }
 
 a {
-  color: #717979;
+	color: #717979;
 }
 
 

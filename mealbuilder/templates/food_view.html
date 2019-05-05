@@ -4,72 +4,20 @@
 <div class="gp_container">
 
 <p> {{message}} </p>
-<table class="meal_view">
+<table class="food_view">
 <!-- Page Content -->
-<tr><td><span class="fc-button fc-button-prev fc-state-default fc-corner-left" onclick="editMeal({{meal.id}})"> Edit Meal </span></td></tr>
 <tr>
-<td>
-<div class="container">
-
-  <!-- Page Heading -->
-  <h1 class="my-4">{{meal.name}}</h1>
-  <table>
-    <tr>
-      <td>Protein Goal: {{meal.protein_goal}}g</td><td>Protein Actual: {{meal.protein}}g</td>
-    </tr>
-    <tr>
-      <td>Carb Goal: {{meal.carb_goal}}g</td><td>Carb Actual: {{meal.carbs}}g</td>
-    </tr>
-    <tr>
-      <td>Fat Goal: {{meal.fat_goal}}g</td><td>Fat Actual: {{meal.total_fat}}g</td>
-    </tr>
-  </table>
-
-
-  <div class="row">
-  {% for mealfood in mealfoods %}
-    <div class="col-lg-6 mb-4">
-      <div class="card h-100">
-        <div class="card-body">
-          <h4 class="card-title">
-            <a href="/meal/food/({{mealfood.food.id}})">{{ mealfood.food.name }}</a>
-          </h4>
-          <table>
-            <tr>
-              <td>
-                <p class="card-text">Quantity: {{mealfood.quantity}}g</p>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p class="card-text">Protein:{{mealfood.protein}}g </p>
-              </td>
-              <td>
-                 <p class="card-text">Carb:{{mealfood.carbs}}g </p>
-              </td>
-              <td>
-                <p class="card-text">Fat:{{mealfood.fat}}g </p>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  <!-- /.row -->
-</td>
 <td>
 <section class="performance-facts">
   <header class="performance-facts__header">
     <h1 class="performance-facts__title">Nutrition Facts</h1>
-    <h5 class="nutrition">{{meal.name}}</h5>
+    <h5 class="nutrition">{{food.name}}</h5>
   </header>
   <table class="performance-facts__table">
     <thead>
       <tr>
         <th colspan="3" class="small-info">
-          Amount Per Meal
+          Amount Per 100g
         </th>
       </tr>
     </thead>
@@ -77,7 +25,7 @@
       <tr>
         <th colspan="2">
           <b>Calories</b>
-          {{meal.calories}}
+          {{food.calories}}
         </th>
         <td>
         </td>
@@ -90,7 +38,7 @@
       <tr>
         <th colspan="2">
           <b>Total Fat</b>
-          {{meal.total_fat}}g
+          {{food.total_fat}}g
         </th>
         <td>
           <b>22%</b>
@@ -101,7 +49,7 @@
         </td>
         <th>
           Saturated Fat
-          {{meal.sat_fat}}g
+          {{food.sat_fat}}g
         </th>
         <td>
           <b>22%</b>
@@ -112,7 +60,7 @@
         </td>
         <th>
           Trans Fat
-          {{meal.trans_fat}}g
+          {{food.trans_fat}}g
         </th>
         <td>
         </td>
@@ -120,7 +68,7 @@
       <tr>
         <th colspan="2">
           <b>Cholesterol</b>
-          {{meal.cholesterol}}mg
+          {{food.cholesterol}}mg
         </th>
         <td>
           <b>18%</b>
@@ -129,7 +77,7 @@
       <tr>
         <th colspan="2">
           <b>Sodium</b>
-          {{meal.sodium}}mg
+          {{food.sodium}}mg
         </th>
         <td>
           <b>2%</b>
@@ -138,7 +86,7 @@
       <tr>
         <th colspan="2">
           <b>Total Carbohydrate</b>
-          {{meal.carbs}}g
+          {{food.carbs}}g
         </th>
         <td>
           <b>6%</b>
@@ -149,7 +97,7 @@
         </td>
         <th>
           Dietary Fiber
-          {{meal.fiber}}g
+          {{food.fiber}}g
         </th>
         <td>
           <b>4%</b>
@@ -160,7 +108,7 @@
         </td>
         <th>
           Sugars
-          {{meal.sugars}}g
+          {{food.sugars}}g
         </th>
         <td>
         </td>
@@ -168,7 +116,7 @@
       <tr class="thick-end">
         <th colspan="2">
           <b>Protein</b>
-          {{meal.protein}}g
+          {{food.protein}}g
         </th>
         <td>
         </td>
@@ -267,10 +215,5 @@
 </td>
 </tr>
 </table>
-<script>
-	function editMeal(id) {
-		window.location = "/meal/edit/("+id+")"
-	}
-</script>
 </div>
 {% endblock %}

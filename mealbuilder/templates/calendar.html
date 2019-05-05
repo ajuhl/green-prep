@@ -1,6 +1,8 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
+<div class="gp_container">
+
 {{ calendar }}
 <script>
 	function goToPlan(date) {
@@ -19,4 +21,5 @@
 	  window.location = "/meal/("+id+")"
   }
 </script>
+</div>
 {% endblock %}

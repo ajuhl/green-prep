@@ -1,46 +1,60 @@
 {% extends "base_generic.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
+
+<div class="gp_container">
+    <h2>Edit Personal Information & Goals</h2>
+
 <p>
     <form method = "POST">
       {% csrf_token %}
-      <div class="fieldWrapper">
+      <div class="form-row">
 
-        <label for="birthdate">Birthdate:</label>
-        {{ form.birthdate }}
+        {{ form.birthdate|as_crispy_field }}
       </div>
 
-      <div class="fieldWrapper">
+      <div class="form-row">
+            <div class="form-group col-md-2 mb-0">
 
-          <label for="birthdate">Sex:</label>
-          {{ form.sex }}
+          {{ form.sex|as_crispy_field }}
+          </div>
       </div>
 
-      <div class="fieldWrapper">
-
-          <label for="birthdate">Height:</label>
-          {{ form.height }}
+      <div class="form-row">
+          <div class="form-group col-md-2 mb-0">
+          {{ form.height|as_crispy_field }}
+          </div>
+          <div class="form-group col-md-2 mb-0">
+          {{ form.weight|as_crispy_field }}
+          </div>
       </div>
 
-      <div class="fieldWrapper">
+      <div class="form-row">
+      <div class="form-group col-md-2 mb-0">
+          {{ form.activity_level|as_crispy_field }} 
+        </div>
+        <div class="form-group col-md-2 mb-0">
+          {{ form.physical_goal|as_crispy_field }}
+        </div>
 
-          <label for="birthdate">Weight:</label>
-          {{ form.weight }}
       </div>
 
-      <div class="fieldWrapper">
+      <div class="form-row">
+            <div class="form-group col-md-2 mb-0">
+                {{ form.protein_goal|as_crispy_field }} 
+              </div>
+              <div class="form-group col-md-2 mb-0">
+                {{ form.carb_goal|as_crispy_field }}
+              </div>
+              <div class="form-group col-md-2 mb-0">
+                    {{ form.fat_goal|as_crispy_field }}
+                  </div>      
+            </div>
 
-          <label for="birthdate">Activity Level:</label>
-          {{ form.activity_level }}
-      </div>
-
-      <div class="fieldWrapper">
-
-          <label for="birthdate">Physical Goal:</label>
-          {{ form.physical_goal }}
-      </div>
-
-      <button type = "submit">Submit</button>
+      <button type = "submit" class="btn btn-info left">Submit</button>
     </form>
 </p>
+
+</div>
 {% endblock %}

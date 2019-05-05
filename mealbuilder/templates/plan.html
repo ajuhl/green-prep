@@ -1,11 +1,13 @@
 {% extends "base_generic.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <p> {{message}} </p>
-<h2>Plan</h2>
 
-<div class="container">
-	<div class="row">
+<div class="gp_container">
+  <h2>Create New Meal Plan</h2>
+
+	<div class="gp_row" >
         <div class="control-group" id="fields">
             <label class="control-label" for="field1"></label>
             <div class="controls">
@@ -14,8 +16,7 @@
                   {% for field in form.get_other_fields %}
                     {% if field is not form.meal %}
                     <p>
-                      {{ field.label_tag }}<br>
-                      {{ field }}
+                      {{ field|as_crispy_field }}
                       {% if field.help_text %}
                         <small style="color: grey">{{ field.help_text }}</small>
                       {% endif %}
@@ -25,11 +26,13 @@
                     </p>
                     {% endif %}
                   {% endfor %}
+
+                  <!-- {% crispy form %} -->
+
                   {% for meal_field in form.get_meal_fields %}
                     <div class="entry input-group col-xs-3">
                       <p>
-                      {{ meal_field.label_tag }}
-                      {{ meal_field }}
+                      {{ meal_field|as_crispy_field }}
                       {% if meal_field.help_text %}
                         <small style="color: grey">{{ meal_field.help_text }}</small>
                       {% endif %}

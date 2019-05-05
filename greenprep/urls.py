@@ -1,6 +1,8 @@
 
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls import url
+from greenprep import views as core_views
 from . import views
 
 
@@ -9,8 +11,9 @@ urlpatterns = [
     path('meal/', include('mealbuilder.urls')),
     path('grocerylist/', include('grocerylist.urls')),
     path('profile/', include('userprofile.urls')),
+    path('signup/', views.signup, name='signup'),
+    path('info/', views.info, name='info'),
     path('', views.index, name='index'),
-
 ]
 
 urlpatterns += [

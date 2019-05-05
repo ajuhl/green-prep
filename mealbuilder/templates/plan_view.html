@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<div class="gp_container">
+
 <p> {{message}} </p>
 <table class="plan_view">
 <!-- Page Content -->
@@ -19,7 +21,7 @@
       <div class="card h-100">
         <div class="card-body">
           <h4 class="card-title">
-            <a href="#">{{ meal.name }}</a>
+            <a href="/meal/({{meal.id}})">{{ meal.name }}</a>
           </h4>
           <table>
             <tr>
@@ -254,4 +256,5 @@
 		window.location = "/meal/plan/edit/("+date+")"
 	}
 </script>
+</div>
 {% endblock %}

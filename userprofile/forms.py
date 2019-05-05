@@ -5,4 +5,14 @@ from .models import Profile
 class UserForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('user','birthdate', 'sex', 'height', 'weight', 'activity_level', 'physical_goal')
+        fields = (
+            'birthdate',
+            'sex',
+            'height',
+            'weight',
+            'activity_level',
+            'physical_goal',
+            'protein_goal',
+            'carb_goal',
+            'fat_goal',
+            )

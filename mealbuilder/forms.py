@@ -1,6 +1,7 @@
 from django import forms
 from .models import Food, Meal, Plan
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 from django.forms import ModelForm, DateInput
 
 class MealForm(ModelForm):
@@ -127,6 +128,18 @@ class PlanForm(ModelForm):
             field_name = 'meal_1'
             self.fields[field_name] = forms.ModelChoiceField(queryset=Meal.objects.all())
             self.fields[field_name].label = "Meal"
+
+        # self.helper = FormHelper()
+        # self.helper.layout = Layout(
+        #     'name',
+        #     Row(
+        #         Column('protein_goal', css_class='form-group col-md-2 mb-0'),
+        #         Column('carb_goal', css_class='form-group col-md-2 mb-0'),
+        #         Column('fat_goal', css_class='form-group col-md-2 mb-0'),
+        #         css_class='form-row'
+        #     )
+
+        # )
 
     def clean(self):
         meals = set()
