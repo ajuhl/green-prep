@@ -1,16 +1,16 @@
-{% extends "base_generic.html" %}
-
+<!-- {% extends "base_generic.html" %} -->
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="gp_container">
+
 
 <h2>Sign up</h2>
  <form method="post">
    {% csrf_token %}
    {% for field in form %}
      <div>
-       {{ field.label_tag }}<br>
-       {{ field }}
+       {{ field|as_crispy_field }}
        {% for error in field.errors %}
          <p style="color: red">{{ error }}</p>
        {% endfor %}
