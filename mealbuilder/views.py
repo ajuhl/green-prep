@@ -13,6 +13,12 @@ from .models import Food, Meal, Plan, MealFood
 from .simplex import OptimizeMeal
 from .utils import Calendar
 
+
+def food(request, food_id=None):
+    instance = get_object_or_404(Food, pk=food_id)
+    context = {'food' : instance}
+    return render(request, 'food_view.html', context)
+
 def meal(request, meal_id=None):
     instance = get_object_or_404(Meal, pk=meal_id)
     context = {
@@ -63,54 +69,6 @@ def meal_edit(request, meal_id=None, profile_id=2):
         error = form.errors
     return render(request, 'meal_edit.html', {'form': form, 'meal':instance, 'meal_id':meal_id})
 
-# def meal(request):
-#
-#     context = {
-#         'message': 'Hello, world. You\'re at the mealbuilder index.',
-#     }
-#
-#     if request.method == 'POST':
-#         form = MealForm(request.POST)
-#         if form.is_valid():
-#             meal = CreateMeal(form)
-#             optimized_meal = OptimizeMeal(meal)
-#             context.update({
-#                 'optimized_meal': meal,
-#                 'message': meal.name + " successfully created",
-#             })
-#
-#     else:
-#         form = MealForm()
-#
-#     context.update({
-#         'form': form,
-#     })
-#     return render(request, 'mealbuilder.html', context=context)
-
-
-def CreateMeal(form):
-    meal = Meal(
-        name = form.cleaned_data.get('name'),
-        protein_goal = form.cleaned_data.get('protein_goal'),
-        carb_goal = form.cleaned_data.get('carb_goal'),
-        fat_goal = form.cleaned_data.get('fat_goal')
-    )
-    meal.save()
-
-    meal_item_1 = meal.mealfoods.create(
-        food = form.cleaned_data.get('food_1'),
-        limit = form.cleaned_data.get('food_1_limit')
-    )
-    meal_item_1.save()
-
-
-    meal_item_2 = meal.mealfoods.create(
-        food = form.cleaned_data.get('food_2'),
-        limit = form.cleaned_data.get('food_2_limit')
-    )
-    meal_item_2.save()
-
-    return meal
 
 class CalendarView(generic.ListView):
     model = Plan

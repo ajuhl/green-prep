@@ -16,4 +16,5 @@ urlpatterns = [
     path('plan/none/(<date>)', mealbuilder_views.plan_none, name='plan_none'),
     path('grocerylist/', mealbuilder_views.grocery_list, name='grocery_list'),
     path('grocerylist/(<start_date>)/(<end_date>)', mealbuilder_views.grocery_list, name='grocery_list'),
+    path('food/(<food_id>)', mealbuilder_views.food, name='food_view'),
 ]
