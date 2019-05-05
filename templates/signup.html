@@ -7,9 +7,13 @@
 
 <h2>Sign up</h2>
  <form method="post">
+    
+   
    {% csrf_token %}
+   
    {% for field in form %}
-     <div>
+  
+     <div class="form-row">
        {{ field|as_crispy_field }}
        {% for error in field.errors %}
          <p style="color: red">{{ error }}</p>
