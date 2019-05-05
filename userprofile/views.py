@@ -43,5 +43,16 @@ def profile(request):
     return render(request, 'profile.html')
 
 def profile_edit(request):
-    form = UserForm()
+    user = request.user
+    profile = request.user.profile
+
+    form = UserForm(initial={
+        'birthdate': profile.birthdate,
+        'sex': profile.sex,
+        'height': profile.height,
+        'weight': profile.weight,
+        'activity_level': profile.activity_level,
+        'physical_goal': profile.physical_goal,
+    })
     return render(request, 'profile_edit.html', {'form': form})
+
