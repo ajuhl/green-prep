@@ -20,15 +20,15 @@ class Food(models.Model):
     calories = models.PositiveSmallIntegerField()
     protein = models.FloatField()
     carbs = models.FloatField()
-    total_fat = models.FloatField(default = -1)
+    total_fat = models.FloatField(default = 0)
     fiber = models.FloatField()
-    sodium = models.FloatField(default = -1)
-    potassium = models.FloatField(default = -1)
-    sugars = models.FloatField(default = -1)
-    magnesium = models.FloatField(default = -1)
-    cholesterol = models.FloatField(default = -1)
-    sat_fat = models.FloatField(default = -1)
-    trans_fat = models.FloatField(default = -1)
+    sodium = models.FloatField(default = 0)
+    potassium = models.FloatField(default = 0)
+    sugars = models.FloatField(default = 0)
+    magnesium = models.FloatField(default = 0)
+    cholesterol = models.FloatField(default = 0)
+    sat_fat = models.FloatField(default = 0)
+    trans_fat = models.FloatField(default = 0)
 
     def __str__(self):
         return self.name
@@ -51,18 +51,18 @@ class Meal(models.Model):
 
     food = models.ManyToManyField(Food, through='MealFood', related_name='meals')
 
-    calories = models.PositiveSmallIntegerField(null=True)
-    protein = models.FloatField(default = 0)
-    carbs = models.FloatField(default = 0)
-    total_fat = models.FloatField(default = 0)
-    fiber = models.FloatField(default = 0)
-    sodium = models.FloatField(default = 0)
-    potassium = models.FloatField(default = 0)
-    sugars = models.FloatField(default = 0)
-    magnesium = models.FloatField(default = 0)
-    cholesterol = models.FloatField(default = 0)
-    sat_fat = models.FloatField(default = 0)
-    trans_fat = models.FloatField(default = 0)
+    calories = models.PositiveSmallIntegerField(default=0)
+    protein = models.PositiveSmallIntegerField(default=0)
+    carbs = models.PositiveSmallIntegerField(default=0)
+    total_fat = models.PositiveSmallIntegerField(default=0)
+    fiber = models.PositiveSmallIntegerField(default=0)
+    sodium = models.PositiveSmallIntegerField(default=0)
+    potassium = models.PositiveSmallIntegerField(default=0)
+    sugars = models.PositiveSmallIntegerField(default=0)
+    magnesium = models.PositiveSmallIntegerField(default=0)
+    cholesterol = models.PositiveSmallIntegerField(default=0)
+    sat_fat = models.PositiveSmallIntegerField(default=0)
+    trans_fat = models.PositiveSmallIntegerField(default=0)
     #calculation goal for the meal for fats, protein, and carbs
     #cals, fats, protein, carbs allocated FOR THE MEAL
     #potentially add info for 'bounds' as in 'no more than 20oz chicken please'
@@ -96,19 +96,19 @@ class Meal(models.Model):
         self.trans_fat =0
 
         for mealfood in self.mealfoods.all():
-            quantity = mealfood.quantity
-            self.protein = self.protein + mealfood.protein
-            self.carbs = self.carbs + mealfood.carbs
-            self.total_fat = self.total_fat + mealfood.fat
-            self.calories = round(self.calories +  (mealfood.food.calories * quantity))
-            self.fiber = round(self.fiber +  (mealfood.food.fiber * quantity))
-            self.sodium = round(self.sodium +  (mealfood.food.sodium * quantity))
-            self.potassium = round(self.potassium +  (mealfood.food.potassium * quantity))
-            self.sugars = round(self.sugars +  (mealfood.food.sugars * quantity))
-            self.magnesium =round( self.magnesium +  (mealfood.food.magnesium * quantity))
-            self.cholesterol = round(self.cholesterol +  (mealfood.food.cholesterol * quantity))
-            self.sat_fat = round(self.sat_fat +  (mealfood.food.sat_fat * quantity))
-            self.trans_fat = round(self.trans_fat +  (mealfood.food.trans_fat * quantity))
+            quantity = mealfood.quantity/100
+            self.protein = int(self.protein + mealfood.protein)
+            self.carbs = int(self.carbs + mealfood.carbs)
+            self.total_fat =int(self.total_fat + mealfood.fat)
+            self.calories = int(round(self.calories +  (mealfood.food.calories * quantity)))
+            self.fiber = int(round(self.fiber +  (mealfood.food.fiber * quantity)))
+            self.sodium = int(round(self.sodium +  (mealfood.food.sodium * quantity)))
+            self.potassium = int(round(self.potassium +  (mealfood.food.potassium * quantity)))
+            self.sugars = int(round(self.sugars +  (mealfood.food.sugars * quantity)))
+            self.magnesium = int(round( self.magnesium +  (mealfood.food.magnesium * quantity)))
+            self.cholesterol = int(round(self.cholesterol +  (mealfood.food.cholesterol * quantity)))
+            self.sat_fat = int(round(self.sat_fat +  (mealfood.food.sat_fat * quantity)))
+            self.trans_fat = int(round(self.trans_fat +  (mealfood.food.trans_fat * quantity)))
             self.save()
 
     class Meta:
@@ -125,21 +125,21 @@ class MealFood(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, related_name='mealfoods',null=True)
     food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name='mealfoods',null=True, blank=True)
     #per 100g portion - this is what the USDA database provides for all entries
-    quantity = models.FloatField(null=True)
+    quantity = models.PositiveSmallIntegerField(null=True)
     limit = models.PositiveSmallIntegerField(null=True)
-    protein = models.FloatField(null=True)
-    carbs = models.FloatField(null=True)
-    fat = models.FloatField(null=True)
+    protein = models.PositiveSmallIntegerField(null=True)
+    carbs = models.PositiveSmallIntegerField(null=True)
+    fat = models.PositiveSmallIntegerField(null=True)
     calories = models.PositiveSmallIntegerField(null=True)
 
     def __str__(self):
         return str(self.food.name + " - " + self.meal.name + " - " + self.meal.profile.user.username)
 
     def updateNutrients(self):
-        self.protein = round(self.food.protein * self.quantity)
-        self.carbs = round(self.food.carbs * self.quantity)
-        self.fat = round(self.food.total_fat * self.quantity)
-        self.calories = round(self.food.calories * self.quantity)
+        self.protein = int(round(self.food.protein * self.quantity/100))
+        self.carbs = int(round(self.food.carbs * self.quantity/100))
+        self.fat = int(round(self.food.total_fat * self.quantity/100))
+        self.calories = int(round(self.food.calories * self.quantity/100))
         self.save()
 
 #---------------------------------------------
@@ -155,17 +155,17 @@ class Plan(models.Model):
     fat_goal = models.PositiveSmallIntegerField()
 
     calories = models.PositiveSmallIntegerField(null=True)
-    protein = models.FloatField(default = 0)
-    carbs = models.FloatField(default = 0)
-    total_fat = models.FloatField(default = 0)
-    fiber = models.FloatField(default = 0)
-    sodium = models.FloatField(default = 0)
-    potassium = models.FloatField(default = 0)
-    sugars = models.FloatField(default = 0)
-    magnesium = models.FloatField(default = 0)
-    cholesterol = models.FloatField(default = 0)
-    sat_fat = models.FloatField(default = 0)
-    trans_fat = models.FloatField(default = 0)
+    protein = models.PositiveSmallIntegerField(default=0)
+    carbs = models.PositiveSmallIntegerField(default=0)
+    total_fat = models.PositiveSmallIntegerField(default=0)
+    fiber = models.PositiveSmallIntegerField(default=0)
+    sodium = models.PositiveSmallIntegerField(default=0)
+    potassium = models.PositiveSmallIntegerField(default=0)
+    sugars = models.PositiveSmallIntegerField(default=0)
+    magnesium = models.PositiveSmallIntegerField(default=0)
+    cholesterol = models.PositiveSmallIntegerField(default=0)
+    sat_fat = models.PositiveSmallIntegerField(default=0)
+    trans_fat = models.PositiveSmallIntegerField(default=0)
 
     meal = models.ManyToManyField(Meal, related_name='plans', null=True)
 
