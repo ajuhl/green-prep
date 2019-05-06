@@ -1,8 +1,9 @@
 from django import forms
 from .models import Food, Meal, Plan
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+
 from django.forms import ModelForm, DateInput
+from dal import autocomplete
+
 
 class MealForm(ModelForm):
     class Meta:
@@ -35,8 +36,14 @@ class MealForm(ModelForm):
             except:
                 foods = set()
         for i in range(len(foods)):
+
+            # class PersonForm(forms.ModelForm):
+            #     birth_country = forms.ModelChoiceField(
+            #         queryset=Country.objects.all(),
+            #         widget=autocomplete.ModelSelect2(url='country-autocomplete')
+            #     )
             field_name = 'food_%s' % (i+1,)
-            self.fields[field_name] = forms.ModelChoiceField(queryset=Food.objects.all(),required=False)
+            self.fields[field_name] = forms.ModelChoiceField(queryset=Food.objects.all(),widget=autocomplete.ModelSelect2(url='food-autocomplete'),required=False)
             self.fields[field_name].label = "Food"
             try:
                 self.initial[field_name] = foods[i].id
@@ -45,7 +52,7 @@ class MealForm(ModelForm):
         # create an extra blank field
         if len(foods) == 0:
             field_name = 'food_1'
-            self.fields[field_name] = forms.ModelChoiceField(queryset=Food.objects.all())
+            self.fields[field_name] = forms.ModelChoiceField(queryset=Food.objects.all(),widget=autocomplete.ModelSelect2(url='food-autocomplete'))
             self.fields[field_name].label = "Food"
 
     def clean(self):
@@ -128,18 +135,6 @@ class PlanForm(ModelForm):
             field_name = 'meal_1'
             self.fields[field_name] = forms.ModelChoiceField(queryset=Meal.objects.all())
             self.fields[field_name].label = "Meal"
-
-        # self.helper = FormHelper()
-        # self.helper.layout = Layout(
-        #     'name',
-        #     Row(
-        #         Column('protein_goal', css_class='form-group col-md-2 mb-0'),
-        #         Column('carb_goal', css_class='form-group col-md-2 mb-0'),
-        #         Column('fat_goal', css_class='form-group col-md-2 mb-0'),
-        #         css_class='form-row'
-        #     )
-
-        # )
 
     def clean(self):
         meals = set()

@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils import timezone
 import calendar
+from dal import autocomplete
+
 
 
 from .forms import MealForm, PlanForm, PlanNoneForm
@@ -181,3 +183,14 @@ def grocery_list(request, start_date=None, end_date=None):
     'start_date' : start_date,
     'end_date' : end_date}
     return render(request, 'grocery_list.html', context)
+
+class FoodAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+
+        qs = Food.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__contains=self.q)
+
+        return qs
