@@ -7,7 +7,7 @@
 <div class="gp_container">
     <h2>Meal</h2>
 
-  
+
 	<div class="row">
         <div class="control-group" id="fields">
             <label class="control-label" for="field1"></label>
@@ -21,7 +21,7 @@
 
                         {{ form.name|as_crispy_field }}
                         </div>
-                        
+
                       </td>
                       </p>
                       {% if form.name.help_text %}
@@ -34,14 +34,14 @@
                   </tr>
                 <div class="form-row">
                     <div class="form-group col-md-2 mb-0">
-                        {{ form.protein_goal|as_crispy_field }} 
+                        {{ form.protein_goal|as_crispy_field }}
                       </div>
                       <div class="form-group col-md-2 mb-0">
                         {{ form.carb_goal|as_crispy_field }}
                       </div>
                       <div class="form-group col-md-2 mb-0">
                             {{ form.fat_goal|as_crispy_field }}
-                      </div>      
+                      </div>
                     </div>
                 </div>
 
@@ -54,10 +54,10 @@
                       </div>
                       <div class="form-group col-md-2 mb-0">
                           <p>Fat Actual: {{meal.fat}}</p>
-                      </div>      
+                      </div>
                     </div>
                 </div>
-                   
+
                   </tr>
                 </table>
                   {% for food_field in form.get_foods_fields %}
@@ -108,11 +108,12 @@
         var controlForm = $('.controls form:first'),
             currentEntry = $(this).parents('.entry:first');
             newEntry = currentEntry.clone();
-            name = newEntry.children('p').children('select').attr('name');
+            name = newEntry.children('div').children('div').children('select').attr('name');
             n = parseInt(name.split('_')[1])+1;
-            newEntry.children('p').children('select').prop('id','id_food_'+n);
-            newEntry.children('p').children('label').prop('for','id_food_'+n)
-            newEntry.children('p').children('select').prop('name', 'food_'+n);
+            newEntry.children('div').children('div').children('select').prop('id','id_food_'+n);
+            newEntry.children('div').children('label').prop('for','id_food_'+n)
+            newEntry.children('div').prop('id','div_id_food_'+n)
+            newEntry.children('div').children('div').children('select').prop('name', 'food_'+n);
             newEntry.insertAfter('.entry:last');
 
         newEntry.find('input').val('');
