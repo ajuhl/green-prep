@@ -639,6 +639,7 @@ table.fc-border-separate {
 .fc-border-separate th,
 .fc-border-separate td {
 	border-width: 1px 0 0 1px;
+  width: 14%;
 	}
 
 .fc-border-separate th.fc-last,
@@ -1066,4 +1067,11 @@ table.fc-header{
 
   .card {
     background-color: #DBFAED;
+  }
+  .form-group {
+    padding-right: 30px;
+  }
+
+  .input-group{
+    align-items: center;
   }
