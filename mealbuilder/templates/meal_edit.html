@@ -109,11 +109,12 @@
         var controlForm = $('.controls form:first'),
             currentEntry = $(this).parents('.entry:first');
             newEntry = currentEntry.clone();
-            name = newEntry.children('p').children('select').attr('name');
+            name = newEntry.children('div').children('div').children('select').attr('name');
             n = parseInt(name.split('_')[1])+1;
-            newEntry.children('p').children('select').prop('id','id_food_'+n);
-            newEntry.children('p').children('label').prop('for','id_food_'+n)
-            newEntry.children('p').children('select').prop('name', 'food_'+n);
+            newEntry.children('div').children('div').children('select').prop('id','id_food_'+n);
+            newEntry.children('div').children('label').prop('for','id_food_'+n)
+            newEntry.children('div').prop('id','div_id_food_'+n)
+            newEntry.children('div').children('div').children('select').prop('name', 'food_'+n);
             newEntry.insertAfter('.entry:last');
 
         newEntry.find('input').val('');
