@@ -81,9 +81,8 @@ a, a:hover, a:focus {
 #sidebar .sidebar-header {
     padding: 20px;
 		background: #6BE5B0;
-		font-family: Ubuntu;
+		font-family:'Roboto', sans-serif;;
 		font-size: 3.2em;
-		font-weight: bold;
 
 }
 
@@ -640,6 +639,7 @@ table.fc-border-separate {
 .fc-border-separate th,
 .fc-border-separate td {
 	border-width: 1px 0 0 1px;
+  width: 14%;
 	}
 
 .fc-border-separate th.fc-last,
@@ -1063,4 +1063,15 @@ table.fc-header{
 
   .plan_none span.fc-button {
     width: 50%;
+  }
+
+  .card {
+    background-color: #DBFAED;
+  }
+  .form-group {
+    padding-right: 30px;
+  }
+
+  .input-group{
+    align-items: center;
   }
