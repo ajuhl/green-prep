@@ -1065,12 +1065,6 @@ table.fc-header{
     width: 50%;
   }
 
-<<<<<<< HEAD
-	.tbody {
-		font-size: medium;
-		font-family: 'Roboto', sans-serif;
-	}
-=======
   .card {
     background-color: #DBFAED;
   }
@@ -1081,4 +1075,3 @@ table.fc-header{
   .input-group{
     align-items: center;
   }
->>>>>>> 04cad55f1f034393772af27ba29819e73b95ffcb
