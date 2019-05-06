@@ -950,7 +950,7 @@ table.fc-header{
     margin: 20px;
   }
   body {
-    font-size: small;
+    font-size: medium;
     line-height: 1.4;
   }
   p {
@@ -1064,3 +1064,8 @@ table.fc-header{
   .plan_none span.fc-button {
     width: 50%;
   }
+
+	.tbody {
+		font-size: medium;
+		font-family: 'Roboto', sans-serif;
+	}
