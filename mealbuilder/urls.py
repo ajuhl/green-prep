@@ -1,5 +1,6 @@
 from django.urls import path, include
 from mealbuilder import views as mealbuilder_views
+from mealbuilder.views import FoodAutocomplete
 
 urlpatterns = [
     path('', mealbuilder_views.meal_edit, name='meal'),
@@ -17,4 +18,9 @@ urlpatterns = [
     path('grocerylist/', mealbuilder_views.grocery_list, name='grocery_list'),
     path('grocerylist/(<start_date>)/(<end_date>)', mealbuilder_views.grocery_list, name='grocery_list'),
     path('food/(<food_id>)', mealbuilder_views.food, name='food_view'),
+     path(
+        r'^food-autocomplete/$',
+        FoodAutocomplete.as_view(),
+        name='food-autocomplete',
+    ),
 ]

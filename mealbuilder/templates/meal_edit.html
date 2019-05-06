@@ -2,7 +2,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
 <div class="gp_container">
     <h2>Meal</h2>
@@ -114,6 +115,7 @@
             newEntry.children('div').children('label').prop('for','id_food_'+n)
             newEntry.children('div').prop('id','div_id_food_'+n)
             newEntry.children('div').children('div').children('select').prop('name', 'food_'+n);
+            newEntry.children('div').children('div').children('span').prop('class','select2 select2-container select2-container--default select2-container--below').remove();
             newEntry.insertAfter('.entry:last');
 
         newEntry.find('input').val('');
@@ -132,4 +134,7 @@
 	});
 });
 </script>
+{% block footer %}
+{{ form.media }}
+{% endblock %}
 {% endblock js %}
