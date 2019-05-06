@@ -49,9 +49,15 @@ def meal_edit(request, meal_id=None, profile_id=2):
         servingSizes=OptimizeMeal(meal)
         i=0
         for mealfood in meal.mealfoods.all():
-            mealfood.quantity = round(servingSizes[i,0]*100)
-            mealfood.updateNutrients()
-            mealfood.save()
+            quantity = round(servingSizes[i,0]*100)
+            if quantity > 0:
+                print('if')
+                mealfood.quantity = round(servingSizes[i,0]*100)
+                mealfood.updateNutrients()
+                mealfood.save()
+            else:
+                print('')
+                meal.mealfoods.remove(mealfood)
             i += 1
 
         meal.updateNutrients()
@@ -165,16 +171,18 @@ def plan_none(request, date=None):
 def grocery_list(request, start_date=None, end_date=None):
     foods = set()
     gList={}
-    plans = Plan.objects.all()
-    for plan in plans:
-        for meal in plan.meal.all():
-            for mealfood in meal.mealfoods.all():
-                name = mealfood.food.name
-                if mealfood.food in foods:
-                    gList[name] += mealfood.quantity
-                else:
-                    foods.add(mealfood.food)
-                    gList[name] = mealfood.quantity
+    if start_date:
+        if end_date:
+            plans = Plan.objects.filter(date__range=[start_date,end_date])
+            for plan in plans:
+                for meal in plan.meal.all():
+                    for mealfood in meal.mealfoods.all():
+                        name = mealfood.food.name
+                        if mealfood.food in foods:
+                            gList[name] += mealfood.quantity
+                        else:
+                            foods.add(mealfood.food)
+                            gList[name] = mealfood.quantity
 
     context = {
     'gList' : gList,

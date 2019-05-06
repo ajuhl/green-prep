@@ -8,9 +8,11 @@
 <tr>
 <td>
 <div class="gp_container">
+  <input type="date" id="start" value="">Start</input>
+  <input type="date" id="end" value="">End</input>
+  <span class="fc-button fc-button-prev fc-state-default fc-corner-left" onclick="groceryList()"> Go </span>
 
   <!-- Page Heading -->
-  <h1 class="my-4">{{start_date}} through {{end_date}}</h1>
 
   <div class="row">
   {% for food, quantity in gList.items %}
@@ -36,5 +38,11 @@
 
 </tr>
 </table>
+<script>
+  function groceryList(){
+    start = document.getElementById("start").value
+    end = document.getElementById("end").value
+    window.location = "{% url 'grocery_list' %}("+start+")/("+end+")"
+  }
+</script>
 {% endblock %}
-
