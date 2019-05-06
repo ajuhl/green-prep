@@ -115,6 +115,7 @@
             newEntry.children('div').children('label').prop('for','id_food_'+n)
             newEntry.children('div').prop('id','div_id_food_'+n)
             newEntry.children('div').children('div').children('select').prop('name', 'food_'+n);
+            newEntry.children('div').children('div').children('span').prop('class','select2 select2-container select2-container--default select2-container--below').remove();
             newEntry.insertAfter('.entry:last');
 
         newEntry.find('input').val('');

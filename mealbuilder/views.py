@@ -194,11 +194,7 @@ def grocery_list(request, start_date=None, end_date=None):
 
 class FoodAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-
         qs = Food.objects.all()
-
         if self.q:
             qs = qs.filter(name__contains=self.q)
-
         return qs
